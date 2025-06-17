@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "phonenumber_field",
-    "member",
+    "secretary",
+    "treasury",
 ]
 
 MIDDLEWARE = [
@@ -124,4 +125,4 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "member.User"
+AUTH_USER_MODEL = "secretary.User"

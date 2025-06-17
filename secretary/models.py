@@ -5,7 +5,7 @@ from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 
 from core.models import BaseModel
-from member.enums import AddressType, BloodType, DrivingLicenseType
+from secretary.enums import AddressType, BloodType, Charters, DrivingLicenseType, Titles
 
 current_year = timezone.now().year
 
@@ -43,6 +43,9 @@ class User(AbstractUser, BaseModel):
     objects = UserManager()
 
     date_joined = models.DateField(default=timezone.now)
+    charter = models.IntegerField(choices=Charters.choices, default=Charters.ANKARA)
+    title = models.IntegerField(choices=Titles.choices, default=Titles.HANGROUND)
+    
     birth_date = models.DateField(null=True, blank=True)
     allergies = models.TextField(blank=True)
     medical_conditions = models.TextField(blank=True)
@@ -65,12 +68,12 @@ class Contact(BaseModel):
     type = models.CharField(
         max_length=5, choices=AddressType.choices, default=AddressType.HOME
     )
-    phone = PhoneNumberField(blank=True)
-    address = models.CharField(max_length=20, blank=True)
-    what3words = models.CharField(max_length=20, blank=True)
+    phone = PhoneNumberField(blank=True, help_text="Format: +905555555555")
+    address = models.CharField(max_length=100, blank=True)
+    what3words = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
-        return self.type
+        return f"{self.get_type_display()} address"
 
 
 class EmergencyContact(BaseModel):
@@ -78,11 +81,11 @@ class EmergencyContact(BaseModel):
         "User", on_delete=models.CASCADE, related_name="emergency_contacts"
     )
     name = models.CharField(max_length=20)
-    phone = PhoneNumberField(blank=True)
+    phone = PhoneNumberField(help_text="Format: +905555555555")
     relationship = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.name
+        return self.relationship
 
 
 class Vehicle(BaseModel):
