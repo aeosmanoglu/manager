@@ -26,15 +26,59 @@ wheels = [
 ]
 
 [[package]]
+name = "django-phonenumber-field"
+version = "8.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/95/4b/edec2f3e4b8f8048540d7d1844bc576a0bdb711e1f6a4cde364c505c865d/django_phonenumber_field-8.1.0.tar.gz", hash = "sha256:f19450625574ad3a2de047c409527d0e57699496849e71e53b53e8679ff67b27", size = 43854, upload-time = "2025-04-10T16:09:29.363Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/89/98/0413e47d7d1fab0e5a81eda6caacdcba69d50f74f64b65febf943cbd1f1e/django_phonenumber_field-8.1.0-py3-none-any.whl", hash = "sha256:9ba66873bf47401b13fc57797fbf85e785864a6bfdc8b9daa3a9012886567045", size = 65208, upload-time = "2025-04-10T16:09:27.843Z" },
+]
+
+[package.optional-dependencies]
+phonenumbers = [
+    { name = "phonenumbers" },
+]
+
+[[package]]
+name = "django-unfold"
+version = "0.60.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a0/d9/d5f0c37bb3f8d9a0ad0a960bc6aa73f1708ab495a1ee9ebe601f688abc62/django_unfold-0.60.0.tar.gz", hash = "sha256:bacb4a65fb7c1d711b518c47189f9895bc2816280c5b1863e403f5d41966895b", size = 1062758, upload-time = "2025-06-16T07:08:41.099Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ad/1c/ddeb44295524cc4772c8faf38c008047bfcec43682e48391d830b39d63bd/django_unfold-0.60.0-py3-none-any.whl", hash = "sha256:bf7cc89a825b4a9c7851bfb048e01b8775bc7e5509c9905fba63711eee3363f2", size = 1167966, upload-time = "2025-06-16T07:08:39.625Z" },
+]
+
+[[package]]
 name = "manager"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "django" },
+    { name = "django-phonenumber-field", extra = ["phonenumbers"] },
+    { name = "django-unfold" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "django", specifier = ">=5.2.3" }]
+requires-dist = [
+    { name = "django", specifier = ">=5.2.3" },
+    { name = "django-phonenumber-field", extras = ["phonenumbers"], specifier = ">=8.1.0" },
+    { name = "django-unfold", specifier = ">=0.60.0" },
+]
+
+[[package]]
+name = "phonenumbers"
+version = "9.0.7"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/49/8c/2c09b844e819e70c261ad79cc302a5e307d97cb0ab70c227031d8ad72871/phonenumbers-9.0.7.tar.gz", hash = "sha256:d4cc2aa36cbf9b0004c370f406d1510ddef56bba9e5f759471ef47e998d8a2f9", size = 2297250, upload-time = "2025-06-09T06:01:09.224Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/03/d6/71ed688698834669f61dbba51601a27b62c1a7f5f868444f973a3fd33dc8/phonenumbers-9.0.7-py2.py3-none-any.whl", hash = "sha256:306eb14d1eaeb82230a08aa1614d04c93322b65b1ded2fff585161ed7eca39fc", size = 2583027, upload-time = "2025-06-09T06:01:04.772Z" },
+]
 
 [[package]]
 name = "sqlparse"

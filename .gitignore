@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,django
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,visualstudiocode,django
 
+### Manual Additions ###
+.ruff_cache/
+
 ### Django ###
 *.log
 *.pot
