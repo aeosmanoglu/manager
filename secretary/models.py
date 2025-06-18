@@ -58,6 +58,13 @@ class User(AbstractUser, BaseModel):
         choices=DrivingLicenseType.choices,
         default=DrivingLicenseType.NONE,
     )
+    sponsor = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="sponsors",
+    )
 
     def __str__(self):
         return self.get_full_name()

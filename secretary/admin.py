@@ -53,19 +53,28 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
         "display_emergency_contact",
         "display_driving_license_type",
         "display_vehicle",
+        "sponsor",
         "is_active",
     )
     list_filter = [
         ("charter", ChoicesCheckboxFilter),
         ("blood_type", ChoicesDropdownFilter),
         ("driving_license_type", ChoicesDropdownFilter),
+        ("sponsor", ChoicesDropdownFilter),
         ("is_active", BooleanRadioFilter),
         ("is_superuser", BooleanRadioFilter),
         ("date_joined", RangeDateFilter),
     ]
     ordering = ("first_name", "-is_active")
     readonly_fields = ("last_login", "created_at", "updated_at")
-    search_fields = ("email", "first_name", "last_name", "title")
+    search_fields = (
+        "email",
+        "first_name",
+        "last_name",
+        "title",
+        "sponsor__first_name",
+        "sponsor__last_name",
+    )
     fieldsets = (
         (
             "Personal Info",
@@ -83,6 +92,7 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
                     "charter",
                     "title",
                     "driving_license_type",
+                    "sponsor",
                     "is_active",
                     "is_staff",
                     "is_superuser",
