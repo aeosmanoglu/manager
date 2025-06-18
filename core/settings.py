@@ -62,7 +62,7 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -193,7 +193,7 @@ UNFOLD = {
             "important-dark": "var(--color-base-100)",  # text-base-100
         },
     },
-    "DASHBOARD_CALLBACK": None,
+    "DASHBOARD_CALLBACK": "core.callbacks.dashboard_callback",
     "ENVIRONMENT": "core.callbacks.environment_callback",
     "ENVIRONMENT_TITLE_PREFIX": None,
     "STYLES": [],
@@ -229,13 +229,16 @@ UNFOLD = {
                 "items": [
                     {
                         "title": "Users",
-                        "icon": "person",
+                        "icon": "sports_motorsports",
                         "link": reverse_lazy("admin:secretary_user_changelist"),
                     },
                     {
                         "title": "Events",
                         "icon": "event",
                         "link": reverse_lazy("admin:secretary_event_changelist"),
+                        "permission": lambda request: request.user.has_perm(
+                            "secretary.view_event"
+                        ),
                     },
                     {
                         "title": "Contacts",
@@ -256,8 +259,9 @@ UNFOLD = {
                     },
                     {
                         "title": "Groups",
-                        "icon": "group",
+                        "icon": "lock_person",
                         "link": reverse_lazy("admin:auth_group_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
                     },
                 ],
             },
@@ -268,21 +272,33 @@ UNFOLD = {
                         "title": "Incomes",
                         "icon": "download",
                         "link": reverse_lazy("admin:treasury_income_changelist"),
+                        "permission": lambda request: request.user.has_perm(
+                            "treasury.view_income"
+                        ),
                     },
                     {
                         "title": "Expenses",
                         "icon": "upload",
                         "link": reverse_lazy("admin:treasury_expense_changelist"),
+                        "permission": lambda request: request.user.has_perm(
+                            "treasury.view_expense"
+                        ),
                     },
                     {
                         "title": "Inventory",
                         "icon": "inventory",
                         "link": reverse_lazy("admin:treasury_inventory_changelist"),
+                        "permission": lambda request: request.user.has_perm(
+                            "treasury.view_inventory"
+                        ),
                     },
                     {
                         "title": "Inventory Items",
                         "icon": "list",
                         "link": reverse_lazy("admin:treasury_inventoryitem_changelist"),
+                        "permission": lambda request: request.user.has_perm(
+                            "treasury.view_inventoryitem"
+                        ),
                     },
                 ],
             },

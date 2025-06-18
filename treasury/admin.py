@@ -33,7 +33,7 @@ class ExpenseAdmin(DefaultAdmin):
 
 @admin.register(Inventory)
 class InventoryAdmin(DefaultAdmin):
-    list_filter = [("quantity", RangeNumericFilter),]
+    list_filter = [("quantity", RangeNumericFilter)]
     list_display = ("item", "user", "quantity", "description")
     search_fields = ("item__name", "user__first_name", "user__last_name", "description")
 
@@ -42,3 +42,8 @@ class InventoryAdmin(DefaultAdmin):
 class InventoryItemAdmin(DefaultAdmin):
     list_display = ("name", "description")
     search_fields = ("name", "description")
+
+
+## TODO: Add label display
+## TODO: Add sgtarms module
+## TODO: Code review

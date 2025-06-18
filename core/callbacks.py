@@ -13,3 +13,8 @@ def _get_project_version():
 def environment_callback(_):
     version = _get_project_version()
     return [version, "success" if not settings.DEBUG else "warning"]
+
+
+def dashboard_callback(request, context):
+    context.update({"user": request.user})
+    return context

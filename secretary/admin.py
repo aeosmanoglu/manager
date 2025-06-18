@@ -157,6 +157,36 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
     def display_driving_license_type(self, obj):
         return obj.get_driving_license_type_display()
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request).filter(charter=request.user.charter)
+        if request.user.is_superuser or request.user.has_perm("secretary.view_user"):
+            return qs
+        return qs.filter(pk=request.user.pk)
+
+    def has_view_permission(self, request, obj=None):
+        if request.user.is_superuser or request.user.has_perm("secretary.view_user"):
+            return True
+        if obj is not None and obj.pk != request.user.pk:
+            return False
+        return True
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser or request.user.has_perm("secretary.change_user"):
+            return True
+        if obj is not None and obj.pk != request.user.pk:
+            return False
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return False
+
+    def has_add_permission(self, request):
+        if request.user.is_superuser or request.user.has_perm("secretary.add_user"):
+            return True
+        return False
+
 
 @admin.register(Group)
 class GroupAdmin(BaseGroupAdmin, DefaultAdmin):
@@ -169,12 +199,82 @@ class ContactAdmin(DefaultAdmin):
     ordering = ("user", "type")
     search_fields = ("user__first_name", "user__last_name")
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request).filter(user__charter=request.user.charter)
+        if request.user.is_superuser or request.user.has_perm("secretary.view_contact"):
+            return qs
+        return qs.filter(user=request.user)
+
+    def has_view_permission(self, request, obj=None):
+        if request.user.is_superuser or request.user.has_perm("secretary.view_contact"):
+            return True
+        if obj is not None and obj.user != request.user:
+            return False
+        return True
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser or request.user.has_perm(
+            "secretary.change_contact"
+        ):
+            return True
+        if obj is not None and obj.user != request.user:
+            return False
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        if obj is not None and obj.user != request.user:
+            return False
+        return True
+
+    def has_add_permission(self, request):
+        return True
+
 
 @admin.register(EmergencyContact)
 class EmergencyContactAdmin(DefaultAdmin):
     list_display = ("user", "name", "phone", "relationship")
     ordering = ("user",)
     search_fields = ("user__first_name", "user__last_name", "name")
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request).filter(user__charter=request.user.charter)
+        if request.user.is_superuser or request.user.has_perm(
+            "secretary.view_emergency_contact"
+        ):
+            return qs
+        return qs.filter(user=request.user)
+
+    def has_view_permission(self, request, obj=None):
+        if request.user.is_superuser or request.user.has_perm(
+            "secretary.view_emergency_contact"
+        ):
+            return True
+        if obj is not None and obj.user != request.user:
+            return False
+        return True
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser or request.user.has_perm(
+            "secretary.change_emergency_contact"
+        ):
+            return True
+        if obj is not None and obj.user != request.user:
+            return False
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser or request.user.has_perm(
+            "secretary.delete_emergency_contact"
+        ):
+            return True
+        if obj is not None and obj.user != request.user:
+            return False
+        return True
+
+    def has_add_permission(self, request):
+        return True
 
 
 @admin.register(Vehicle)
@@ -202,6 +302,40 @@ class VehicleAdmin(DefaultAdmin):
     @display(description="Engine Capacity")
     def display_engine_capacity(self, obj):
         return f"{obj.engine_capacity} cc"
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request).filter(user__charter=request.user.charter)
+        if request.user.is_superuser or request.user.has_perm("secretary.view_vehicle"):
+            return qs
+        return qs.filter(user=request.user)
+
+    def has_view_permission(self, request, obj=None):
+        if request.user.is_superuser or request.user.has_perm("secretary.view_vehicle"):
+            return True
+        if obj is not None and obj.user != request.user:
+            return False
+        return True
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser or request.user.has_perm(
+            "secretary.change_vehicle"
+        ):
+            return True
+        if obj is not None and obj.pk != request.user.pk:
+            return False
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser or request.user.has_perm(
+            "secretary.delete_vehicle"
+        ):
+            return True
+        if obj is not None and obj.user != request.user:
+            return False
+        return True
+
+    def has_add_permission(self, request):
+        return True
 
 
 @admin.register(Event)
@@ -283,3 +417,8 @@ class EventAdmin(DefaultAdmin):
     )
     def display_type(self, obj):
         return obj.type
+
+
+## TODO: Divide into multiple files
+## TODO: Add permission checks event
+## TODO: Add read only fields

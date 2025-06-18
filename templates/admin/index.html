@@ -1,0 +1,37 @@
+{% extends 'admin/base.html' %}
+
+{% load i18n unfold %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block title %}
+    {% trans 'Dashboard' %} | {{ site_title|default:_('Django site admin') }}
+{% endblock %}
+
+{% block branding %}
+    {% include "unfold/helpers/site_branding.html" %}
+{% endblock %}
+
+{% block content %}
+{% component "unfold/components/flex.html" with col=True class="gap-4 mx-4" %}
+ <!-- My Profile Card Start -->
+{% component "unfold/components/card.html" with title="My Profile" footer=user.sponsor.get_full_name %}
+{% component "unfold/components/flex.html" with class="gap-4 justify-between items-center" %}
+<!-- My Profile Card Left Column -->
+{% component "unfold/components/flex.html" with col=True %}
+{% component "unfold/components/text.html" %}{{ user.get_title_display }}{% endcomponent %}
+{% component "unfold/components/title.html" %}<a href="/secretary/user/{{ user.pk }}/change/">{{ user }}</a>{% endcomponent %}
+{% endcomponent %}
+<!-- My Profile Card Right Column -->
+{% component "unfold/components/flex.html" with col=True %}
+{% component "unfold/components/text.html" %}{{ user.date_joined }}{% endcomponent %}
+{% component "unfold/components/text.html" %}{{ user.get_charter_display }}{% endcomponent %}
+{% endcomponent %}
+{% endcomponent %}
+{% endcomponent %}
+<!-- My Profile Card End -->
+
+
+
+{% endcomponent %}
+{% endblock %}
