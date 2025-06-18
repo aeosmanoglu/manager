@@ -140,6 +140,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "secretary.User"
 
+LOGIN_REDIRECT_URL = "/"
+
+
 UNFOLD = {
     "SITE_TITLE": "Black Flag MC",
     "SITE_HEADER": "Black Flag MC",
