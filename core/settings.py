@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -115,11 +118,20 @@ USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGES = [
+    ("tr", "Turkish"),
+    ("en", "English"),
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -127,3 +139,156 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "secretary.User"
+
+UNFOLD = {
+    "SITE_TITLE": "Black Flag MC",
+    "SITE_HEADER": "Black Flag MC",
+    "SITE_SUBHEADER": "Management System",
+    "SITE_DROPDOWN": None,
+    "SITE_URL": "/",
+    "SITE_ICON": None,
+    "SITE_SYMBOL": "flag",
+    "SITE_LOGO": None,
+    "SITE_FAVICONS": [],
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": False,
+    "SHOW_LANGUAGES": False,
+    "SHOW_BACK_BUTTON": True,
+    "COLORS": {
+        "base": {
+            "50": "249, 250, 251",
+            "100": "243, 244, 246",
+            "200": "229, 231, 235",
+            "300": "209, 213, 219",
+            "400": "156, 163, 175",
+            "500": "107, 114, 128",
+            "600": "75, 85, 99",
+            "700": "55, 65, 81",
+            "800": "31, 41, 55",
+            "900": "17, 24, 39",
+            "950": "3, 7, 18",
+        },
+        "primary": {
+            50: "var(--color-base-50)",
+            100: "var(--color-base-100)",
+            200: "var(--color-base-200)",
+            300: "var(--color-base-300)",
+            400: "var(--color-base-400)",
+            500: "var(--color-base-500)",
+            600: "var(--color-base-600)",
+            700: "var(--color-base-700)",
+            800: "var(--color-base-800)",
+            900: "var(--color-base-900)",
+            950: "var(--color-base-950)",
+        },
+        "font": {
+            "subtle-light": "var(--color-base-500)",  # text-base-500
+            "subtle-dark": "var(--color-base-400)",  # text-base-400
+            "default-light": "var(--color-base-600)",  # text-base-600
+            "default-dark": "var(--color-base-300)",  # text-base-300
+            "important-light": "var(--color-base-900)",  # text-base-900
+            "important-dark": "var(--color-base-100)",  # text-base-100
+        },
+    },
+    "DASHBOARD_CALLBACK": None,
+    "ENVIRONMENT": "core.callbacks.environment_callback",
+    "ENVIRONMENT_TITLE_PREFIX": None,
+    "STYLES": [],
+    "SCRIPTS": [],
+    "ACCOUNT": {
+        "navigation": [
+            # {
+            #     "title": "title",
+            #     "link": "link",
+            # },
+        ],
+    },
+    "LANGUAGES": {
+        "action": None,
+        "navigation": [],
+    },
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": True,
+        "navigation": [
+            {
+                "title": "Navigation",
+                "items": [
+                    {
+                        "title": "Dashboard",
+                        "icon": "dashboard",
+                        "link": reverse_lazy("admin:index"),
+                    }
+                ],
+            },
+            {
+                "title": "Secretary",
+                "items": [
+                    {
+                        "title": "Users",
+                        "icon": "person",
+                        "link": reverse_lazy("admin:secretary_user_changelist"),
+                    },
+                    {
+                        "title": "Events",
+                        "icon": "event",
+                        "link": reverse_lazy("admin:secretary_event_changelist"),
+                    },
+                    {
+                        "title": "Contacts",
+                        "icon": "home",
+                        "link": reverse_lazy("admin:secretary_contact_changelist"),
+                    },
+                    {
+                        "title": "Emergency Contacts",
+                        "icon": "emergency",
+                        "link": reverse_lazy(
+                            "admin:secretary_emergencycontact_changelist"
+                        ),
+                    },
+                    {
+                        "title": "Vehicles",
+                        "icon": "two_wheeler",
+                        "link": reverse_lazy("admin:secretary_vehicle_changelist"),
+                    },
+                    {
+                        "title": "Groups",
+                        "icon": "group",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": "Treasury",
+                "items": [
+                    {
+                        "title": "Incomes",
+                        "icon": "download",
+                        "link": reverse_lazy("admin:treasury_income_changelist"),
+                    },
+                    {
+                        "title": "Expenses",
+                        "icon": "upload",
+                        "link": reverse_lazy("admin:treasury_expense_changelist"),
+                    },
+                    {
+                        "title": "Inventory",
+                        "icon": "inventory",
+                        "link": reverse_lazy("admin:treasury_inventory_changelist"),
+                    },
+                    {
+                        "title": "Inventory Items",
+                        "icon": "list",
+                        "link": reverse_lazy("admin:treasury_inventoryitem_changelist"),
+                    },
+                ],
+            },
+        ],
+    },
+    "TABS": [],
+    "LOGIN": {
+        "image": lambda request: static("images/login-bg.webp"),
+        "redirect_after": None,
+    },
+    "EXTENSIONS": {"modeltranslation": {"flags": {}}},
+}
