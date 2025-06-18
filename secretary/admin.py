@@ -8,13 +8,14 @@ from unfold.contrib.filters.admin import (
     ChoicesCheckboxFilter,
     ChoicesDropdownFilter,
     RangeDateFilter,
+    RangeNumericFilter,
 )
 from unfold.decorators import display
 from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm
 
 from core.admin import DefaultAdmin
-from secretary.enums import DrivingLicenseType
-from secretary.models import Contact, EmergencyContact, User, Vehicle
+from secretary.enums import DrivingLicenseType, EventTypes
+from secretary.models import Contact, EmergencyContact, Event, User, Vehicle
 
 admin.site.unregister(Group)
 
@@ -45,6 +46,7 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
     inlines = [ContactInline, EmergencyContactInline, VehicleInline]
     list_display = (
         "first_name",
+        "last_name",
         "title",
         "charter",
         "blood_type",
@@ -65,7 +67,7 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
         ("is_superuser", BooleanRadioFilter),
         ("date_joined", RangeDateFilter),
     ]
-    ordering = ("first_name", "-is_active")
+    ordering = ("created_at", "-is_active")
     readonly_fields = ("last_login", "created_at", "updated_at")
     search_fields = (
         "email",
@@ -177,4 +179,107 @@ class EmergencyContactAdmin(DefaultAdmin):
 
 @admin.register(Vehicle)
 class VehicleAdmin(DefaultAdmin):
-    pass
+    list_display = (
+        "user",
+        "plate",
+        "brand",
+        "model",
+        "year",
+        "display_engine_capacity",
+        "last_maintenance_date",
+        "inspection_expiry_date",
+        "insurance_expiry_date",
+    )
+    list_filter = [
+        ("year", RangeNumericFilter),
+        ("engine_capacity", RangeNumericFilter),
+        ("last_maintenance_date", RangeDateFilter),
+        ("inspection_expiry_date", RangeDateFilter),
+        ("insurance_expiry_date", RangeDateFilter),
+    ]
+    search_fields = ("user__first_name", "user__last_name", "plate", "brand", "model")
+
+    @display(description="Engine Capacity")
+    def display_engine_capacity(self, obj):
+        return f"{obj.engine_capacity} cc"
+
+
+@admin.register(Event)
+class EventAdmin(DefaultAdmin):
+    filter_horizontal = ("attendance",)
+    list_display = (
+        "display_type",
+        "name",
+        "date_time",
+        "location",
+        "charter",
+        "display_attendance",
+        "display_attendance_rate",
+        "display_has_training",
+        "has_ride",
+    )
+    fieldsets = (
+        (
+            "Event Info",
+            {
+                "classes": ["tab"],
+                "fields": (
+                    "type",
+                    "name",
+                    "date_time",
+                    "location",
+                    "charter",
+                    "agenda",
+                ),
+            },
+        ),
+        (
+            "Attendance",
+            {
+                "classes": ["tab"],
+                "fields": ("attendance",),
+            },
+        ),
+        (
+            "Decisions",
+            {
+                "classes": ["tab"],
+                "fields": ("decisions", "training_note"),
+            },
+        ),
+        (
+            "Ride",
+            {
+                "classes": ["tab"],
+                "fields": ("has_ride", "destination", "ride_note"),
+            },
+        ),
+    )
+
+    @display(description="Attendance")
+    def display_attendance(self, obj):
+        return obj.attendance.count()
+
+    @display(description="Attendance Rate")
+    def display_attendance_rate(self, obj):
+        total_active_users = obj.attendance.model.objects.filter(
+            charter=obj.charter, is_active=True
+        ).count()
+        if total_active_users > 0:
+            return f"{obj.attendance.count() / total_active_users * 100:.0f}%"
+        return "0%"
+
+    @display(description="Has Training", boolean=True)
+    def display_has_training(self, obj):
+        return obj.training_note != ""
+
+    @display(
+        description="Type",
+        label={
+            EventTypes.MEETING: "info",
+            EventTypes.RIDE: "success",
+            EventTypes.OTHER: "secondary",
+        },
+    )
+    def display_type(self, obj):
+        return obj.type

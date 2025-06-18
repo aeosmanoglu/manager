@@ -57,3 +57,10 @@ class DrivingLicenseType(models.TextChoices):
     A2 = "A2", "A2"
     A1 = "A1", "A1"
     M = "M", "M"
+
+
+class EventTypes(models.TextChoices):
+    MEETING = "meeting", "Meeting"
+    RIDE = "ride", "Ride"
+    PARTY = "party", "Party"
+    OTHER = "other", "Other"

@@ -5,13 +5,20 @@ from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 
 from core.models import BaseModel
-from secretary.enums import AddressType, BloodType, Charters, DrivingLicenseType, Titles
+from secretary.enums import (
+    AddressType,
+    BloodType,
+    Charters,
+    DrivingLicenseType,
+    EventTypes,
+    Titles,
+)
 
 current_year = timezone.now().year
 
 turkish_plate_validator = RegexValidator(
-    regex=r'^[0-9]{2}[A-Z]{1,3}[0-9]{2,4}$',
-    message="Please enter a valid Turkish license plate. (Ex: 06ABC123)"
+    regex=r"^[0-9]{2}[A-Z]{1,3}[0-9]{2,4}$",
+    message="Please enter a valid Turkish license plate. (Ex: 06ABC123)",
 )
 
 
@@ -45,7 +52,7 @@ class User(AbstractUser, BaseModel):
     date_joined = models.DateField(default=timezone.now)
     charter = models.IntegerField(choices=Charters.choices, default=Charters.ANKARA)
     title = models.IntegerField(choices=Titles.choices, default=Titles.HANGROUND)
-    
+
     birth_date = models.DateField(null=True, blank=True)
     allergies = models.TextField(blank=True)
     medical_conditions = models.TextField(blank=True)
@@ -100,9 +107,13 @@ class Vehicle(BaseModel):
     brand = models.CharField(max_length=20)
     model = models.CharField(max_length=20)
     year = models.IntegerField(
-        validators=(MinValueValidator(1900), MaxValueValidator(current_year + 1))
+        validators=(MinValueValidator(1950), MaxValueValidator(current_year + 1))
     )
-    plate = models.CharField(max_length=10, validators=(turkish_plate_validator,))
+    plate = models.CharField(
+        max_length=10,
+        validators=(turkish_plate_validator,),
+        help_text="Format: 06ABC123",
+    )
     engine_capacity = models.IntegerField()
     last_maintenance_date = models.DateField()
     inspection_expiry_date = models.DateField()
@@ -110,3 +121,28 @@ class Vehicle(BaseModel):
 
     def __str__(self):
         return self.plate
+
+
+class Event(BaseModel):
+    type = models.CharField(max_length=10, choices=EventTypes.choices)
+    name = models.CharField(max_length=50, default="Weekly Meeting")
+    date_time = models.DateTimeField(default=timezone.now)
+    location = models.CharField(max_length=50, default="Club House")
+    charter = models.IntegerField(choices=Charters.choices, default=Charters.ANKARA)
+    agenda = models.TextField(blank=True)
+
+    decisions = models.TextField(blank=True)
+    training_note = models.TextField(blank=True)
+
+    has_ride = models.BooleanField(default=False)
+    destination = models.CharField(max_length=50, blank=True)
+    ride_note = models.TextField(blank=True)
+
+    attendance = models.ManyToManyField(
+        "User",
+        blank=True,
+        related_name="attended_events",
+    )
+
+    def __str__(self):
+        return self.name
