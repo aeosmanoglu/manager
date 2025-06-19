@@ -46,4 +46,3 @@ class InventoryItemAdmin(DefaultAdmin):
 
 ## TODO: Add label display
 ## TODO: Add sgtarms module
-## TODO: Code review

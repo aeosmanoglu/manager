@@ -6,6 +6,7 @@ class IncomeType(models.TextChoices):
     SPONSORSHIP = "sponsorship", "Sponsorship"
     OTHER = "other", "Other"
 
+
 class ExpenseType(models.TextChoices):
     DEPT = "dept", "Dept"
     UTILITY = "utility", "Utility"
