@@ -63,6 +63,3 @@ class InventoryAdmin(DefaultAdmin):
 class InventoryItemAdmin(DefaultAdmin):
     list_display = ("name", "description")
     search_fields = ("name", "description")
-
-
-## TODO: Add sgtarms module

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "secretary",
     "treasury",
+    "sergeant_at_arms",
 ]
 
 MIDDLEWARE = [
@@ -306,6 +307,21 @@ UNFOLD = {
                         "link": reverse_lazy("admin:treasury_inventoryitem_changelist"),
                         "permission": lambda request: request.user.has_perm(
                             "treasury.view_inventoryitem"
+                        ),
+                    },
+                ],
+            },
+            {
+                "title": "Sergeant at Arms",
+                "items": [
+                    {
+                        "title": "Disciplines",
+                        "icon": "gavel",
+                        "link": reverse_lazy(
+                            "admin:sergeant_at_arms_discipline_changelist"
+                        ),
+                        "permission": lambda request: request.user.has_perm(
+                            "sergeant_at_arms.view_discipline"
                         ),
                     },
                 ],
