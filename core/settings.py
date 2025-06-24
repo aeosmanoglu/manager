@@ -269,19 +269,27 @@ UNFOLD = {
                 "title": "Treasury",
                 "items": [
                     {
-                        "title": "Incomes",
-                        "icon": "download",
-                        "link": reverse_lazy("admin:treasury_income_changelist"),
+                        "title": "Statements",
+                        "icon": "swap_vert",
+                        "link": reverse_lazy("admin:treasury_statement_changelist"),
                         "permission": lambda request: request.user.has_perm(
-                            "treasury.view_income"
+                            "treasury.view_statement"
                         ),
                     },
                     {
-                        "title": "Expenses",
-                        "icon": "upload",
-                        "link": reverse_lazy("admin:treasury_expense_changelist"),
+                        "title": "Dues",
+                        "icon": "face_down",
+                        "link": reverse_lazy("admin:treasury_dues_changelist"),
                         "permission": lambda request: request.user.has_perm(
-                            "treasury.view_expense"
+                            "treasury.view_dues"
+                        ),
+                    },
+                    {
+                        "title": "Periods",
+                        "icon": "calendar_month",
+                        "link": reverse_lazy("admin:treasury_period_changelist"),
+                        "permission": lambda request: request.user.has_perm(
+                            "treasury.view_period"
                         ),
                     },
                     {

@@ -1,40 +1,61 @@
 from django.contrib import admin
 from unfold.contrib.filters.admin import (
+    BooleanRadioFilter,
     ChoicesCheckboxFilter,
     RangeDateFilter,
     RangeNumericFilter,
+    RelatedDropdownFilter,
 )
+from unfold.decorators import display
 
 from core.admin import DefaultAdmin
-from treasury.models import Expense, Income, Inventory, InventoryItem
+from treasury.enums import StatementType
+from treasury.models import Dues, Inventory, InventoryItem, Period, Statement
 
 
-@admin.register(Income)
-class IncomeAdmin(DefaultAdmin):
+@admin.register(Period)
+class PeriodAdmin(DefaultAdmin):
+    list_display = ("month", "year")
+    search_fields = ("month", "year")
+
+
+@admin.register(Dues)
+class DuesAdmin(DefaultAdmin):
+    list_display = ("user", "period", "amount", "is_paid", "date", "description")
+    list_filter = [
+        ("period", RelatedDropdownFilter),
+        ("is_paid", BooleanRadioFilter),
+        ("date", RangeDateFilter),
+        ("amount", RangeNumericFilter),
+    ]
+    search_fields = ("user__first_name", "user__last_name", "description")
+
+
+@admin.register(Statement)
+class StatementAdmin(DefaultAdmin):
+    list_display = ("display_type", "amount", "date", "description")
     list_filter = [
         ("type", ChoicesCheckboxFilter),
         ("date", RangeDateFilter),
         ("amount", RangeNumericFilter),
     ]
-    list_display = ("type", "user", "amount", "date", "description")
-    search_fields = ("user__first_name", "user__last_name", "description")
+    search_fields = ("description",)
 
-
-@admin.register(Expense)
-class ExpenseAdmin(DefaultAdmin):
-    list_filter = [
-        ("type", ChoicesCheckboxFilter),
-        ("date", RangeDateFilter),
-        ("amount", RangeNumericFilter),
-    ]
-    list_display = ("type", "user", "amount", "date", "description")
-    search_fields = ("user__first_name", "user__last_name", "description")
+    @display(
+        description="Type",
+        label={
+            StatementType.INCOME: "success",
+            StatementType.EXPENSE: "danger",
+        },
+    )
+    def display_type(self, obj):
+        return obj.type
 
 
 @admin.register(Inventory)
 class InventoryAdmin(DefaultAdmin):
-    list_filter = [("quantity", RangeNumericFilter)]
     list_display = ("item", "user", "quantity", "description")
+    list_filter = [("quantity", RangeNumericFilter)]
     search_fields = ("item__name", "user__first_name", "user__last_name", "description")
 
 
@@ -44,5 +65,4 @@ class InventoryItemAdmin(DefaultAdmin):
     search_fields = ("name", "description")
 
 
-## TODO: Add label display
 ## TODO: Add sgtarms module
