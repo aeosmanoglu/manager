@@ -155,7 +155,7 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
         },
     )
     def display_driving_license_type(self, obj):
-        return obj.get_driving_license_type_display()
+        return obj.driving_license_type
 
     def get_queryset(self, request):
         qs = super().get_queryset(request).filter(charter=request.user.charter)
