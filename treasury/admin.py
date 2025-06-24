@@ -30,6 +30,8 @@ class DuesAdmin(DefaultAdmin):
     ]
     search_fields = ("user__first_name", "user__last_name", "description")
 
+    # TODO: Secili kullanicilara borc ata
+
 
 @admin.register(Statement)
 class StatementAdmin(DefaultAdmin):
