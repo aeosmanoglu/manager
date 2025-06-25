@@ -284,6 +284,7 @@ UNFOLD = {
                         "permission": lambda request: request.user.has_perm(
                             "treasury.view_dues"
                         ),
+                        "badge": "core.callbacks.dues_badge_callback",
                     },
                     {
                         "title": "Periods",
@@ -294,7 +295,7 @@ UNFOLD = {
                         ),
                     },
                     {
-                        "title": "Inventory",
+                        "title": "Inventories",
                         "icon": "inventory",
                         "link": reverse_lazy("admin:treasury_inventory_changelist"),
                         "permission": lambda request: request.user.has_perm(
@@ -315,7 +316,7 @@ UNFOLD = {
                 "title": "Sergeant at Arms",
                 "items": [
                     {
-                        "title": "Disciplines",
+                        "title": "Penalties",
                         "icon": "gavel",
                         "link": reverse_lazy(
                             "admin:sergeant_at_arms_discipline_changelist"
