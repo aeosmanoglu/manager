@@ -34,6 +34,9 @@
                         {% endif %}
                     {% endcomponent %}
                     {% component "unfold/components/flex.html" with col=True %}
+                        {% if user.inventories.all %}
+                            {% component "unfold/components/text.html"%}{{ user.inventories.count }} deposit{% endcomponent %}
+                        {% endif %}
                         {% if user.contacts.all %}
                             {% component "unfold/components/text.html" with class="text-green-700 dark:text-green-400" %}{{ user.contacts.count }} contact{% endcomponent %}
                         {% else %}
@@ -89,5 +92,9 @@
                 {% component "unfold/components/title.html" %}{{ discipline_count }}{% endcomponent%}
             {% endcomponent%}
         {% endcomponent %}
+
+        {% component "unfold/components/separator.html" %}{% endcomponent %}
+
+        {% comment %} Third Row {% endcomment %}
     {% endcomponent %}
 {% endblock %}
