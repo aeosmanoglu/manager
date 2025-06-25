@@ -23,62 +23,60 @@
 
         {% comment %} First Row {% endcomment %}
         {% component "unfold/components/flex.html" with col=True class="md:flex-row gap-4" %}
-            {% component "unfold/components/card.html" with title="Membership Info" %}
-                {% component "unfold/components/flex.html" with class="justify-between" %}
-                    {% component "unfold/components/flex.html" with col=True %}
-                        {% component "unfold/components/text.html" %}{{ user.get_charter_display }}{% endcomponent %}
-                        {% component "unfold/components/text.html" %}{{ user.date_joined }}{% endcomponent %}
-                        {% component "unfold/components/text.html" %}{{ user.date_joined|timesince }}{% endcomponent %}
-                        {% if user.sponsor %}
-                            {% component "unfold/components/text.html" %}Sponsor: {{ user.sponsor.get_full_name }}{% endcomponent %}
-                        {% endif %}
-                    {% endcomponent %}
-                    {% component "unfold/components/flex.html" with col=True %}
-                        {% if user.inventories.all %}
-                            {% component "unfold/components/text.html"%}{{ user.inventories.count }} deposit{% endcomponent %}
-                        {% endif %}
-                        {% if user.contacts.all %}
-                            {% component "unfold/components/text.html" with class="text-green-700 dark:text-green-400" %}{{ user.contacts.count }} contact{% endcomponent %}
-                        {% else %}
-                            {% component "unfold/components/text.html" with class="text-red-700 dark:text-red-400" %}No contacts added{% endcomponent %}
-                        {% endif %}
-                        {% if user.emergency_contacts.count > 1 %}
-                            {% component "unfold/components/text.html" with class="text-green-700 dark:text-green-400" %}{{ user.emergency_contacts.count }} emergency contacts{% endcomponent %}
-                        {% elif user.emergency_contacts.count == 1 %}
-                            {% component "unfold/components/text.html" with class="text-red-700 dark:text-red-400" %}1 emergency contact{% endcomponent %}
-                        {% else %}
-                            {% component "unfold/components/text.html" with class="text-red-700 dark:text-red-400" %}No emergency contacts added{% endcomponent %}
-                        {% endif %}
-                        {% component "unfold/components/text.html" with class="text-red-700 dark:text-red-400 font-semibold" %}Blood Type: {{user.blood_type}}{% endcomponent %}
-                    {% endcomponent %}
+            {% component "unfold/components/card.html" with title="Membership Info" label=user.blood_type %}
+                {% component "unfold/components/flex.html" with col=True %}
+                    {% if user.driving_license_type != "A" %}
+                        {% component "unfold/components/text.html" with class="text-red-700 dark:text-red-400 font-semibold" %}License: {{user.driving_license_type}}{% endcomponent %}
+                    {% else %}
+                        {% component "unfold/components/text.html" with class="text-green-700 dark:text-green-400 font-semibold" %}License: {{user.driving_license_type}}{% endcomponent %}
+                    {% endif %}
+                    {% component "unfold/components/text.html" %}{{ user.get_charter_display }}{% endcomponent %}
+                    {% component "unfold/components/text.html" %}{{ user.date_joined }} - ({{ user.date_joined|timesince }}){% endcomponent %}
+                    {% if user.birth_date %}
+                        {% component "unfold/components/text.html" %}{{ user.birth_date }} - ({{ user.birth_date|timesince }} old){% endcomponent %}
+                    {% endif %}
+                    {% if user.sponsor %}
+                        {% component "unfold/components/text.html" %}Sponsor: {{ user.sponsor.get_full_name }}{% endcomponent %}
+                    {% endif %}
+                    {% if user.inventories.all %}
+                        {% component "unfold/components/text.html"%}{{ user.inventories.count }} deposit{% endcomponent %}
+                    {% endif %}
+                    {% if user.contacts.all %}
+                        {% component "unfold/components/text.html" %}{{ user.contacts.count }} contact{% endcomponent %}
+                    {% else %}
+                        {% component "unfold/components/text.html" with class="text-red-700 dark:text-red-400" %}No contacts added{% endcomponent %}
+                    {% endif %}
+                    {% if user.emergency_contacts.count > 1 %}
+                        {% component "unfold/components/text.html" %}{{ user.emergency_contacts.count }} emergency contacts{% endcomponent %}
+                    {% elif user.emergency_contacts.count == 1 %}
+                        {% component "unfold/components/text.html" with class="text-red-700 dark:text-red-400" %}1 emergency contact{% endcomponent %}
+                    {% else %}
+                        {% component "unfold/components/text.html" with class="text-red-700 dark:text-red-400" %}No emergency contacts added{% endcomponent %}
+                    {% endif %}
                 {% endcomponent %}
             {% endcomponent %}
 
-            {% component "unfold/components/card.html" with title="Driver Info" %}
-                {% component "unfold/components/flex.html" with class="justify-between" %}
+            {% for vehicle in user.vehicles.all %}
+                {% component "unfold/components/card.html" with title=vehicle.plate %}
                     {% component "unfold/components/flex.html" with col=True %}
-                        {% component "unfold/components/text.html" %}{{ user.vehicles.first.plate|default:"No vehicle" }}{% endcomponent %}
-                        {% component "unfold/components/text.html" %}{{ user.vehicles.first.brand }} {{ user.vehicles.first.model }}{% endcomponent %}
-                        {% component "unfold/components/text.html" %}{{ user.vehicles.first.engine_capacity|default:"0" }} cc{% endcomponent %}
-                        {% component "unfold/components/text.html" %}{{ user.vehicles.first.year }}{% endcomponent %}
-                    {% endcomponent %}
-                    {% component "unfold/components/flex.html" with col=True %}
-                        {% component "unfold/components/text.html" %}Maintenance: {{ user.vehicles.first.last_maintenance_date|timesince|default:"-" }}{% endcomponent %}
-                        {% component "unfold/components/text.html" %}Inspection: {{ user.vehicles.first.inspection_expiry_date|timeuntil|default:"-" }}{% endcomponent %}
-                        {% component "unfold/components/text.html" %}Insurance: {{ user.vehicles.first.insurance_expiry_date|timeuntil|default:"-" }}{% endcomponent %}
-                        {% if user.driving_license_type != "A" %}
-                            {% component "unfold/components/text.html" with class="text-red-700 dark:text-red-400 font-semibold" %}License: {{user.driving_license_type}}{% endcomponent %}
-                        {% else %}
-                            {% component "unfold/components/text.html" with class="text-green-700 dark:text-green-400 font-semibold" %}License: {{user.driving_license_type}}{% endcomponent %}
-                        {% endif %}
+                        {% component "unfold/components/text.html" %}{{ vehicle.brand }}{% endcomponent %}
+                        {% component "unfold/components/text.html" %}{{ vehicle.model }}{% endcomponent %}
+                        {% component "unfold/components/text.html" %}{{ vehicle.engine_capacity }} cc{% endcomponent %}
+                        {% component "unfold/components/text.html" %}{{ vehicle.year }}{% endcomponent %}
+                        {% component "unfold/components/text.html" %}Maintenance: {{ vehicle.last_maintenance_date|timesince|default:"-" }}{% endcomponent %}
+                        {% component "unfold/components/text.html" %}Inspection: {{ vehicle.inspection_expiry_date|timeuntil|default:"-" }}{% endcomponent %}
+                        {% component "unfold/components/text.html" %}Insurance: {{ vehicle.insurance_expiry_date|timeuntil|default:"-" }}{% endcomponent %}
                     {% endcomponent %}
                 {% endcomponent %}
-            {% endcomponent %}
-
+            {% empty %}
+                {% component "unfold/components/card.html" with title="Vehicle Info" %}
+                    {% component "unfold/components/title.html" %}No vehicle{% endcomponent %}
+                {% endcomponent %}
+            {% endfor %}
         {% endcomponent %}
 
         {% comment %} Second Row {% endcomment %}
-        {% component "unfold/components/flex.html" with col=True class="md:flex-row gap-4" %}
+        {% component "unfold/components/flex.html" with col=True class="lg:flex-row gap-4" %}
             {% component "unfold/components/card.html" with title="My Participations" icon="calendar_month" %}
                 {% component "unfold/components/title.html" %}{{ user.attended_events.count|default:"Invisible" }}{% endcomponent%}
             {% endcomponent%}
@@ -102,7 +100,7 @@
 
         {% comment %} Table {% endcomment %}
         {% if is_member %}
-            {% component "unfold/components/flex.html" with col=True class="md:flex-row gap-4" %}
+            {% component "unfold/components/flex.html" with col=True class="lg:flex-row gap-4" %}
                 {% component "unfold/components/card.html" with title="Event Absences" footer="in a year" %}
                     {% component "unfold/components/table.html" with table=event_table card_included=1 striped=1 %}{% endcomponent%}
                 {% endcomponent %}
@@ -112,10 +110,12 @@
                 {% component "unfold/components/card.html" with title="Unpaid Dues" footer="in a year" %}
                     {% component "unfold/components/table.html" with table=due_table card_included=1 striped=1 %}{% endcomponent%}
                 {% endcomponent %}
+            {% endcomponent %}
+            {% component "unfold/components/flex.html" with col=True class="lg:flex-row gap-4" %}
                 {% component "unfold/components/card.html" with title="Missing Contacts" footer=contact_table_footer %}
                     {% component "unfold/components/table.html" with table=contact_table card_included=1 striped=1 %}{% endcomponent%}
                 {% endcomponent %}
-                {% component "unfold/components/card.html" with title="Motorcycles" footer=motorcycle_table_footer %}
+                {% component "unfold/components/card.html" with title="Riders" footer=motorcycle_table_footer %}
                     {% component "unfold/components/table.html" with table=motorcycle_table card_included=1 striped=1 %}{% endcomponent%}
                 {% endcomponent %}
             {% endcomponent %}
