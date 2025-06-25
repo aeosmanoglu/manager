@@ -79,22 +79,46 @@
 
         {% comment %} Second Row {% endcomment %}
         {% component "unfold/components/flex.html" with col=True class="md:flex-row gap-4" %}
-            {% component "unfold/components/card.html" with title="Participation" icon="calendar_month" %}
+            {% component "unfold/components/card.html" with title="My Participations" icon="calendar_month" %}
                 {% component "unfold/components/title.html" %}{{ user.attended_events.count|default:"Invisible" }}{% endcomponent%}
             {% endcomponent%}
-            {% component "unfold/components/card.html" with title="Ride" icon="directions" %}
-                {% component "unfold/components/title.html" %}{{ ride_count }}{% endcomponent%}
+            {% component "unfold/components/card.html" with title="My Rides" icon="directions" %}
+                {% component "unfold/components/title.html" %}{{ ride_count_title }}{% endcomponent%}
             {% endcomponent%}
-            {% component "unfold/components/card.html" with title="Total Debt" icon="wallet" label=total_debt_label %}
-                {% component "unfold/components/title.html" %}{{ total_debt_display }}{% endcomponent%}
+            {% component "unfold/components/card.html" with title="My Debts" icon="wallet" label=total_debt_label %}
+                {% component "unfold/components/title.html" %}{{ total_debt_title }}{% endcomponent%}
             {% endcomponent%}
-            {% component "unfold/components/card.html" with title="Disciplinary" icon="warning" label="in a year" %}
-                {% component "unfold/components/title.html" %}{{ discipline_count }}{% endcomponent%}
+            {% component "unfold/components/card.html" with title="My Penalties" icon="warning" label="in a year" %}
+                {% component "unfold/components/title.html" %}{{ discipline_count_title }}{% endcomponent%}
             {% endcomponent%}
+            {% if is_member %}
+                {% component "unfold/components/card.html" with title="Net Balance" icon="balance" %}
+                    {% component "unfold/components/title.html" %}{{ balance_title }}{% endcomponent%}
+                {% endcomponent%}
+            {% endif %}
         {% endcomponent %}
 
         {% component "unfold/components/separator.html" %}{% endcomponent %}
 
-        {% comment %} Third Row {% endcomment %}
+        {% comment %} Table {% endcomment %}
+        {% if is_member %}
+            {% component "unfold/components/flex.html" with col=True class="md:flex-row gap-4" %}
+                {% component "unfold/components/card.html" with title="Event Absences" footer="in a year" %}
+                    {% component "unfold/components/table.html" with table=event_table card_included=1 striped=1 %}{% endcomponent%}
+                {% endcomponent %}
+                {% component "unfold/components/card.html" with title="Ride Absences" footer="in a year" %}
+                    {% component "unfold/components/table.html" with table=ride_table card_included=1 striped=1 %}{% endcomponent%}
+                {% endcomponent %}
+                {% component "unfold/components/card.html" with title="Unpaid Dues" footer="in a year" %}
+                    {% component "unfold/components/table.html" with table=due_table card_included=1 striped=1 %}{% endcomponent%}
+                {% endcomponent %}
+                {% component "unfold/components/card.html" with title="Missing Contacts" footer=contact_table_footer %}
+                    {% component "unfold/components/table.html" with table=contact_table card_included=1 striped=1 %}{% endcomponent%}
+                {% endcomponent %}
+                {% component "unfold/components/card.html" with title="Motorcycles" footer=motorcycle_table_footer %}
+                    {% component "unfold/components/table.html" with table=motorcycle_table card_included=1 striped=1 %}{% endcomponent%}
+                {% endcomponent %}
+            {% endcomponent %}
+        {% endif %}
     {% endcomponent %}
 {% endblock %}
