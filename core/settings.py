@@ -194,8 +194,8 @@ UNFOLD = {
             "important-dark": "var(--color-base-100)",  # text-base-100
         },
     },
-    "DASHBOARD_CALLBACK": "core.callbacks.dashboard_callback",
-    "ENVIRONMENT": "core.callbacks.environment_callback",
+    "DASHBOARD_CALLBACK": "core.callbacks.dashboard.callback",
+    "ENVIRONMENT": "core.callbacks.environment.callback",
     "ENVIRONMENT_TITLE_PREFIX": None,
     "STYLES": [],
     "SCRIPTS": [],
@@ -284,7 +284,7 @@ UNFOLD = {
                         "permission": lambda request: request.user.has_perm(
                             "treasury.view_dues"
                         ),
-                        "badge": "core.callbacks.dues_badge_callback",
+                        "badge": "core.callbacks.badges.dues_callback",
                     },
                     {
                         "title": "Periods",
