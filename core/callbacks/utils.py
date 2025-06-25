@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.utils import timezone
 
 
@@ -12,4 +14,4 @@ def has_permission(user):
 
 
 def one_year_ago():
-    return timezone.now().date().replace(year=timezone.now().year - 1)
+    return timezone.now() - timedelta(days=365)
