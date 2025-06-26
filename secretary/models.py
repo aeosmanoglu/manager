@@ -122,6 +122,8 @@ class Vehicle(BaseModel):
     inspection_expiry_date = models.DateField()
     insurance_expiry_date = models.DateField()
 
+    # TODO: Add is_active field
+
     def __str__(self):
         return self.plate
 

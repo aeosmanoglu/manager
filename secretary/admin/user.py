@@ -114,7 +114,7 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
                 "classes": ["tab"],
                 "fields": (
                     "groups",
-                    "user_permissions",
+                    # "user_permissions",
                 ),
             },
         ),
@@ -169,7 +169,6 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
             "is_staff",
             "is_superuser",
             "groups",
-            "user_permissions",
             "last_login",
             "created_at",
             "updated_at",
