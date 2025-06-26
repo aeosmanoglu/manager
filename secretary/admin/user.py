@@ -63,7 +63,6 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
         ("date_joined", RangeDateFilter),
     ]
     ordering = ("created_at", "-is_active")
-    readonly_fields = ("last_login", "created_at", "updated_at")
     search_fields = (
         "email",
         "first_name",
@@ -157,6 +156,24 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
         if request.user.is_superuser or request.user.has_perm("secretary.view_user"):
             return qs
         return qs.filter(pk=request.user.pk)
+
+    def get_readonly_fields(self, request, obj=None):
+        if request.user.is_superuser or request.user.has_perm("secretary.change_user"):
+            return ("last_login", "created_at", "updated_at")
+        return (
+            "date_joined",
+            "charter",
+            "title",
+            "sponsor",
+            "is_active",
+            "is_staff",
+            "is_superuser",
+            "groups",
+            "user_permissions",
+            "last_login",
+            "created_at",
+            "updated_at",
+        )
 
     def has_view_permission(self, request, obj=None):
         if request.user.is_superuser or request.user.has_perm("secretary.view_user"):

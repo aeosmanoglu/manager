@@ -20,6 +20,7 @@ class EventAdmin(DefaultAdmin):
         "display_has_training",
         "has_ride",
     )
+    readonly_fields = ("created_at", "updated_at")
     fieldsets = (
         (
             "Event Info",
@@ -56,6 +57,10 @@ class EventAdmin(DefaultAdmin):
                 "fields": ("has_ride", "destination", "ride_note"),
             },
         ),
+        (
+            "Important dates",
+            {"classes": ["tab"], "fields": ("created_at", "updated_at")},
+        ),
     )
 
     @display(description="Attendance")
@@ -85,3 +90,10 @@ class EventAdmin(DefaultAdmin):
     )
     def display_type(self, obj):
         return obj.type
+
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(charter=request.user.charter)

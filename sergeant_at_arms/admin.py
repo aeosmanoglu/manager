@@ -11,6 +11,7 @@ class DisciplineAdmin(DefaultAdmin):
     filter_horizontal = ("attendance",)
     list_display = ("user", "offense", "penalty", "display_is_guilty", "date")
     list_filter = [("is_guilty", BooleanRadioFilter)]
+    readonly_fields = ("created_at", "updated_at")
 
     @display(
         description="Is Guilty",

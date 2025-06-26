@@ -29,6 +29,7 @@ class VehicleAdmin(DefaultAdmin):
         ("inspection_expiry_date", RangeDateFilter),
         ("insurance_expiry_date", RangeDateFilter),
     ]
+    readonly_fields = ("created_at", "updated_at")
     search_fields = ("user__first_name", "user__last_name", "plate", "brand", "model")
 
     @display(description="Engine Capacity")
@@ -68,3 +69,15 @@ class VehicleAdmin(DefaultAdmin):
 
     def has_add_permission(self, request):
         return True
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "user":
+            if not (
+                request.user.is_superuser
+                or request.user.has_perm("secretary.add_contact")
+                or request.user.has_perm("secretary.change_contact")
+            ):
+                kwargs["queryset"] = kwargs.get(
+                    "queryset", self.model._meta.get_field("user").related_model.objects
+                ).filter(pk=request.user.pk)
+            return super().formfield_for_foreignkey(db_field, request, **kwargs)

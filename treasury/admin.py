@@ -28,6 +28,7 @@ class DuesAdmin(DefaultAdmin):
         ("date", RangeDateFilter),
         ("amount", RangeNumericFilter),
     ]
+    readonly_fields = ("created_at", "updated_at")
     search_fields = ("user__first_name", "user__last_name", "description")
 
     # TODO: Secili kullanicilara borc ata
@@ -41,6 +42,7 @@ class StatementAdmin(DefaultAdmin):
         ("date", RangeDateFilter),
         ("amount", RangeNumericFilter),
     ]
+    readonly_fields = ("created_at", "updated_at")
     search_fields = ("description",)
 
     @display(
@@ -58,6 +60,7 @@ class StatementAdmin(DefaultAdmin):
 class InventoryAdmin(DefaultAdmin):
     list_display = ("item", "user", "quantity", "description")
     list_filter = [("quantity", RangeNumericFilter)]
+    readonly_fields = ("created_at", "updated_at")
     search_fields = ("item__name", "user__first_name", "user__last_name", "description")
 
 

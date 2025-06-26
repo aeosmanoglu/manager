@@ -98,7 +98,8 @@ class EmergencyContact(BaseModel):
     phone = PhoneNumberField(help_text="Format: +905555555555")
     relationship = models.CharField(max_length=20)
 
-    # TODO: ayni telefon numarasi girememeli
+    class Meta:
+        unique_together = ("user", "phone")
 
     def __str__(self):
         return self.relationship

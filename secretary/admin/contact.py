@@ -8,6 +8,7 @@ from secretary.models import Contact
 class ContactAdmin(DefaultAdmin):
     list_display = ("user", "type", "phone", "address", "what3words")
     ordering = ("user", "type")
+    readonly_fields = ("created_at", "updated_at")
     search_fields = ("user__first_name", "user__last_name")
 
     def get_queryset(self, request):
@@ -41,3 +42,15 @@ class ContactAdmin(DefaultAdmin):
 
     def has_add_permission(self, request):
         return True
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "user":
+            if not (
+                request.user.is_superuser
+                or request.user.has_perm("secretary.add_contact")
+                or request.user.has_perm("secretary.change_contact")
+            ):
+                kwargs["queryset"] = kwargs.get(
+                    "queryset", self.model._meta.get_field("user").related_model.objects
+                ).filter(pk=request.user.pk)
+            return super().formfield_for_foreignkey(db_field, request, **kwargs)
