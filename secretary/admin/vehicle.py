@@ -1,5 +1,6 @@
 from django.contrib import admin
 from unfold.contrib.filters.admin import (
+    BooleanRadioFilter,
     RangeDateFilter,
     RangeNumericFilter,
 )
@@ -21,6 +22,7 @@ class VehicleAdmin(DefaultAdmin):
         "last_maintenance_date",
         "inspection_expiry_date",
         "insurance_expiry_date",
+        "is_active",
     )
     list_filter = [
         ("year", RangeNumericFilter),
@@ -28,6 +30,7 @@ class VehicleAdmin(DefaultAdmin):
         ("last_maintenance_date", RangeDateFilter),
         ("inspection_expiry_date", RangeDateFilter),
         ("insurance_expiry_date", RangeDateFilter),
+        ("is_active", BooleanRadioFilter),
     ]
     readonly_fields = ("created_at", "updated_at")
     search_fields = ("user__first_name", "user__last_name", "plate", "brand", "model")

@@ -57,7 +57,7 @@
             {% endcomponent %}
 
             {% for vehicle in user.vehicles.all %}
-                {% component "unfold/components/card.html" with title=vehicle.plate %}
+                {% component "unfold/components/card.html" with title=vehicle.plate label=vehicle.is_active|yesno:"Active,Inactive" %}
                     {% component "unfold/components/flex.html" with col=True %}
                         {% component "unfold/components/text.html" %}{{ vehicle.brand }}{% endcomponent %}
                         {% component "unfold/components/text.html" %}{{ vehicle.model }}{% endcomponent %}

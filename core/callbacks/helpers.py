@@ -73,7 +73,9 @@ def _get_absence_table(users, user_attendance, all_ids, user_id_to_name, min_str
 
 def get_event_absence_table(users, user_attendance, all_events, user_id_to_name):
     """Etkinlik yoklama tablosu döndürür."""
-    rows = _get_absence_table(users, user_attendance, all_events, user_id_to_name, min_streak=4)
+    rows = _get_absence_table(
+        users, user_attendance, all_events, user_id_to_name, min_streak=4
+    )
     return {"headers": ["User", "Streak"], "rows": rows}
 
 
@@ -116,9 +118,14 @@ def get_contact_table(users, contact_count, emergency_contact_count, user_id_to_
 def get_motorcycle_table(all_vehicles, user_id_to_name, user_id_to_license):
     """Kullanıcıların motosiklet bilgilerini döndürür."""
     motorcycle_data = [
-        [user_id_to_name[v.user_id], user_id_to_license[v.user_id], v.engine_capacity]
+        [
+            user_id_to_name[v.user_id],
+            user_id_to_license[v.user_id],
+            v.engine_capacity,
+            v.is_active,
+        ]
         for v in all_vehicles
         if v.user_id in user_id_to_name
     ]
-    motorcycle_data.sort(key=lambda x: x[2], reverse=True)
-    return {"headers": ["User", "License", "CC"], "rows": motorcycle_data}
+    motorcycle_data.sort(key=lambda x: (not x[3], -x[2]))
+    return {"headers": ["User", "License", "CC", "Active"], "rows": motorcycle_data}
