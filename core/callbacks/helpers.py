@@ -50,15 +50,43 @@ def get_balance():
 
 
 def _get_absence_table(users, user_attendance, all_ids, user_id_to_name, min_streak=2):
-    """Kullanıcıların ardışık katılmadığı etkinlik/sürüş serilerini hesaplar."""
+    """Kullanıcıların ardışık katılmadığı etkinlik/sürüş serilerini hesaplar. Sadece üyelik tarihinden sonraki etkinlikler dikkate alınır."""
     absence_data = []
 
     for u in users:
         user_id = u["id"]
         full_name = user_id_to_name[user_id]
         attended_ids = user_attendance.get(user_id, set())
+        # Kullanıcının üyelik tarihinden sonraki etkinlik/sürüş ID'lerini filtrele
+        joined_date = u.get("date_joined")
+        filtered_ids = (
+            [
+                eid
+                for eid in all_ids
+                if hasattr(eid, "date_time") and eid.date_time >= joined_date
+            ]
+            if joined_date
+            else all_ids
+        )
+        # Eğer all_ids sadece id ise, etkinliklerin tarihine ulaşmak için ek bilgi gerekebilir. Ancak dashboard.py'de all_ids sadece id listesi olarak geliyor.
+        # Bu yüzden, all_ids'nin Event objesi değil, id listesi olduğunu varsayarsak, all_ids'nin sırası tarih sırası ile aynı.
+        # O yüzden, Event objelerinin tarihleriyle eşleştirmek için ek bir yapı gerekebilir. Ancak mevcut kodda, all_ids zaten bir yıl öncesinden başlıyor.
+        # Yine de, date_joined'dan önceki etkinlikleri atlamak için, all_ids'nin indeksini bulup oradan başlatabiliriz.
+        # Bunun için, Event'lerin tarih sırasına göre id listesi olduğunu varsayarsak:
+        if joined_date:
+            # all_ids'nin sırası tarih sırası ile aynı olduğu için, kullanıcının üyelik tarihinden sonraki ilk etkinliği bul
+            from secretary.models import Event
+
+            event_dates = list(
+                Event.objects.filter(id__in=all_ids)
+                .order_by("date_time")
+                .values_list("id", "date_time")
+            )
+            filtered_ids = [eid for eid, dt in event_dates if dt.date() >= joined_date]
+        else:
+            filtered_ids = all_ids
         current_streak = max_streak = 0
-        for eid in all_ids:
+        for eid in filtered_ids:
             if eid not in attended_ids:
                 current_streak += 1
                 if current_streak > max_streak:

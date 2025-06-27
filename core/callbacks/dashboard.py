@@ -20,7 +20,7 @@ from treasury.models import Dues
 def get_all_users():
     return list(
         User.objects.filter(is_active=True).values(
-            "id", "first_name", "last_name", "driving_license_type"
+            "id", "first_name", "last_name", "driving_license_type", "date_joined"
         )
     )
 
