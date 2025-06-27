@@ -1,5 +1,6 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils import timezone
 from unfold.admin import StackedInline, TabularInline
 from unfold.contrib.filters.admin import (
     BooleanRadioFilter,
@@ -7,12 +8,14 @@ from unfold.contrib.filters.admin import (
     ChoicesDropdownFilter,
     RangeDateFilter,
 )
-from unfold.decorators import display
+from unfold.decorators import action, display
 from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm
 
+from core import settings
 from core.admin import DefaultAdmin
-from secretary.enums import DrivingLicenseType
+from secretary.enums import DrivingLicenseType, Titles
 from secretary.models import Contact, EmergencyContact, User, Vehicle
+from treasury.models import Dues, Period
 
 
 class ContactInline(TabularInline):
@@ -35,6 +38,7 @@ class VehicleInline(StackedInline):
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin, DefaultAdmin):
+    actions = ["add_dues"]
     add_form = UserCreationForm
     change_password_form = AdminPasswordChangeForm
     form = UserChangeForm
@@ -150,6 +154,41 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
     )
     def display_driving_license_type(self, obj):
         return obj.driving_license_type
+
+    @action(
+        description="Add dues to selected users",
+        icon="paid",
+        permissions=["add_dues"],
+    )
+    def add_dues(self, request, queryset):
+        last_period = Period.objects.order_by("-year", "-month").first()
+        if not last_period:
+            self.message_user(request, "No period found!", level=messages.ERROR)
+            return
+        for user in queryset:            
+            if user.title == Titles.HANGROUND:
+                amount = settings.HANGROUND_DUE_AMOUNT
+            elif user.title == Titles.PROSPECT:
+                amount = settings.PROSPECT_DUE_AMOUNT
+            elif user.title >= 40 and user.title < 50:
+                amount = settings.MEMBER_DUE_AMOUNT
+            else:
+                continue
+            Dues.objects.create(
+                user=user,
+                period=last_period,
+                amount=amount,
+                date=timezone.now(),
+                description="Toplu eklenen aidat",
+            )
+        self.message_user(
+            request,
+            f"{queryset.count()} user(s) added dues for {last_period} period.",
+            level=messages.SUCCESS,
+        )
+
+    def has_add_dues_permission(self, request, obj=None):
+        return request.user.is_superuser or request.user.has_perm("treasury.add_dues")
 
     def get_queryset(self, request):
         qs = super().get_queryset(request).filter(charter=request.user.charter)
