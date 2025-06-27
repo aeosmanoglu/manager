@@ -30,7 +30,6 @@
                     {% else %}
                         {% component "unfold/components/text.html" with class="text-green-700 dark:text-green-400 font-semibold" %}License: {{user.driving_license_type}}{% endcomponent %}
                     {% endif %}
-                    {% component "unfold/components/text.html" %}{{ user.get_charter_display }}{% endcomponent %}
                     {% component "unfold/components/text.html" %}{{ user.date_joined }} - ({{ user.date_joined|timesince }}){% endcomponent %}
                     {% if user.birth_date %}
                         {% component "unfold/components/text.html" %}{{ user.birth_date }} - ({{ user.birth_date|timesince }} old){% endcomponent %}

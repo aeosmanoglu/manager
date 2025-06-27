@@ -12,7 +12,7 @@ class ContactAdmin(DefaultAdmin):
     search_fields = ("user__first_name", "user__last_name")
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request).filter(user__charter=request.user.charter)
+        qs = super().get_queryset(request)
         if request.user.is_superuser or request.user.has_perm("secretary.view_contact"):
             return qs
         return qs.filter(user=request.user)
@@ -45,12 +45,13 @@ class ContactAdmin(DefaultAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "user":
-            if not (
+            UserModel = self.model._meta.get_field("user").related_model
+            if (
                 request.user.is_superuser
                 or request.user.has_perm("secretary.add_contact")
                 or request.user.has_perm("secretary.change_contact")
             ):
-                kwargs["queryset"] = kwargs.get(
-                    "queryset", self.model._meta.get_field("user").related_model.objects
-                ).filter(pk=request.user.pk)
+                kwargs["queryset"] = UserModel.objects.all()
+            else:
+                kwargs["queryset"] = UserModel.objects.filter(pk=request.user.pk)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)

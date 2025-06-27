@@ -8,7 +8,6 @@ from core.models import BaseModel
 from secretary.enums import (
     AddressType,
     BloodType,
-    Charters,
     DrivingLicenseType,
     EventTypes,
     Titles,
@@ -50,7 +49,6 @@ class User(AbstractUser, BaseModel):
     objects = UserManager()
 
     date_joined = models.DateField(default=timezone.now)
-    charter = models.IntegerField(choices=Charters.choices, default=Charters.ANKARA)
     title = models.IntegerField(choices=Titles.choices, default=Titles.HANGROUND)
 
     birth_date = models.DateField(null=True, blank=True)
@@ -116,6 +114,7 @@ class Vehicle(BaseModel):
         max_length=10,
         validators=(turkish_plate_validator,),
         help_text="Format: 06ABC123",
+        unique=True,
     )
     engine_capacity = models.IntegerField()
     last_maintenance_date = models.DateField()
@@ -132,7 +131,6 @@ class Event(BaseModel):
     name = models.CharField(max_length=50, default="Weekly Meeting")
     date_time = models.DateTimeField(default=timezone.now)
     location = models.CharField(max_length=50, default="Club House")
-    charter = models.IntegerField(choices=Charters.choices, default=Charters.ANKARA)
     agenda = models.TextField(blank=True)
 
     decisions = models.TextField(blank=True)

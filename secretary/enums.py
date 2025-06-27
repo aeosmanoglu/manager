@@ -1,11 +1,6 @@
 from django.db import models
 
 
-class Charters(models.IntegerChoices):
-    ANKARA = 6, "Ankara"
-    ESKISEHIR = 26, "Eskişehir"
-
-
 class Titles(models.IntegerChoices):
     SUPPORTER = 10, "Supporter"
     HANGROUND = 20, "Hanground"

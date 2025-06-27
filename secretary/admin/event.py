@@ -14,7 +14,6 @@ class EventAdmin(DefaultAdmin):
         "name",
         "date_time",
         "location",
-        "charter",
         "display_attendance",
         "display_attendance_rate",
         "display_has_training",
@@ -31,7 +30,6 @@ class EventAdmin(DefaultAdmin):
                     "name",
                     "date_time",
                     "location",
-                    "charter",
                     "agenda",
                 ),
             },
@@ -69,9 +67,7 @@ class EventAdmin(DefaultAdmin):
 
     @display(description="Attendance Rate")
     def display_attendance_rate(self, obj):
-        total_active_users = obj.attendance.model.objects.filter(
-            charter=obj.charter, is_active=True
-        ).count()
+        total_active_users = obj.attendance.model.objects.filter(is_active=True).count()
         if total_active_users > 0:
             return f"{obj.attendance.count() / total_active_users * 100:.0f}%"
         return "0%"
@@ -90,9 +86,3 @@ class EventAdmin(DefaultAdmin):
     )
     def display_type(self, obj):
         return obj.type
-
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(charter=request.user.charter)

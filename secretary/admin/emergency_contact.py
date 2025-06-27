@@ -12,16 +12,16 @@ class EmergencyContactAdmin(DefaultAdmin):
     search_fields = ("user__first_name", "user__last_name", "name")
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request).filter(user__charter=request.user.charter)
+        qs = super().get_queryset(request)
         if request.user.is_superuser or request.user.has_perm(
-            "secretary.view_emergency_contact"
+            "secretary.view_emergencycontact"
         ):
             return qs
         return qs.filter(user=request.user)
 
     def has_view_permission(self, request, obj=None):
         if request.user.is_superuser or request.user.has_perm(
-            "secretary.view_emergency_contact"
+            "secretary.view_emergencycontact"
         ):
             return True
         if obj is not None and obj.user != request.user:
@@ -30,7 +30,7 @@ class EmergencyContactAdmin(DefaultAdmin):
 
     def has_change_permission(self, request, obj=None):
         if request.user.is_superuser or request.user.has_perm(
-            "secretary.change_emergency_contact"
+            "secretary.change_emergencycontact"
         ):
             return True
         if obj is not None and obj.user != request.user:
@@ -39,7 +39,7 @@ class EmergencyContactAdmin(DefaultAdmin):
 
     def has_delete_permission(self, request, obj=None):
         if request.user.is_superuser or request.user.has_perm(
-            "secretary.delete_emergency_contact"
+            "secretary.delete_emergencycontact"
         ):
             return True
         if obj is not None and obj.user != request.user:
@@ -51,12 +51,13 @@ class EmergencyContactAdmin(DefaultAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "user":
-            if not (
+            UserModel = self.model._meta.get_field("user").related_model
+            if (
                 request.user.is_superuser
-                or request.user.has_perm("secretary.add_contact")
-                or request.user.has_perm("secretary.change_contact")
+                or request.user.has_perm("secretary.add_emergencycontact")
+                or request.user.has_perm("secretary.change_emergencycontact")
             ):
-                kwargs["queryset"] = kwargs.get(
-                    "queryset", self.model._meta.get_field("user").related_model.objects
-                ).filter(pk=request.user.pk)
+                kwargs["queryset"] = UserModel.objects.all()
+            else:
+                kwargs["queryset"] = UserModel.objects.filter(pk=request.user.pk)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)

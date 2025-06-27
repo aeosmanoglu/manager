@@ -4,7 +4,6 @@ from django.utils import timezone
 from unfold.admin import StackedInline, TabularInline
 from unfold.contrib.filters.admin import (
     BooleanRadioFilter,
-    ChoicesCheckboxFilter,
     ChoicesDropdownFilter,
     RangeDateFilter,
 )
@@ -47,7 +46,6 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
         "first_name",
         "last_name",
         "title",
-        "charter",
         "blood_type",
         "date_joined",
         "display_contact",
@@ -58,7 +56,6 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
         "is_active",
     )
     list_filter = [
-        ("charter", ChoicesCheckboxFilter),
         ("blood_type", ChoicesDropdownFilter),
         ("driving_license_type", ChoicesDropdownFilter),
         ("sponsor", ChoicesDropdownFilter),
@@ -89,7 +86,6 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
                 "classes": ["tab"],
                 "fields": (
                     "date_joined",
-                    "charter",
                     "title",
                     "driving_license_type",
                     "sponsor",
@@ -191,7 +187,7 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
         return request.user.is_superuser or request.user.has_perm("treasury.add_dues")
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request).filter(charter=request.user.charter)
+        qs = super().get_queryset(request)
         if request.user.is_superuser or request.user.has_perm("secretary.view_user"):
             return qs
         return qs.filter(pk=request.user.pk)
@@ -201,7 +197,6 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
             return ("last_login", "created_at", "updated_at")
         return (
             "date_joined",
-            "charter",
             "title",
             "sponsor",
             "is_active",
