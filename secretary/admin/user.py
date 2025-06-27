@@ -165,7 +165,7 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
         if not last_period:
             self.message_user(request, "No period found!", level=messages.ERROR)
             return
-        for user in queryset:            
+        for user in queryset:
             if user.title == Titles.HANGROUND:
                 amount = settings.HANGROUND_DUE_AMOUNT
             elif user.title == Titles.PROSPECT:

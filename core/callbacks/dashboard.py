@@ -121,7 +121,7 @@ def callback(request, context):
     if is_member:
         dashboard_data = build_dashboard_context()
         context.update(dashboard_data)
-        
+
     else:
         context["balance_title"] = None
         context["event_table"] = None

@@ -91,7 +91,6 @@ class EventAdmin(DefaultAdmin):
     def display_type(self, obj):
         return obj.type
 
-
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:

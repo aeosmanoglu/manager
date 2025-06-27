@@ -6,6 +6,7 @@ from core.admin import DefaultAdmin
 
 admin.site.unregister(Group)
 
+
 @admin.register(Group)
 class GroupAdmin(BaseGroupAdmin, DefaultAdmin):
     pass
