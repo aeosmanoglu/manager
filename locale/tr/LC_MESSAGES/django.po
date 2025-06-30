@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 13:21+0300\n"
+"POT-Creation-Date: 2025-06-30 15:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgstr "İletişimler"
 msgid "Emergency Contacts"
 msgstr "Acil İletişimler"
 
-#: core/callbacks/helpers.py:156 secretary/admin/user.py:142
+#: core/callbacks/helpers.py:156 secretary/admin/user.py:144
 #: secretary/models.py:73 templates/admin/index.html:31
 #: templates/admin/index.html:33
 msgid "License"
@@ -142,6 +142,10 @@ msgstr "Çavuş"
 msgid "Penalties"
 msgstr "Cezalar"
 
+#: secretary/admin/contact.py:63 secretary/admin/user.py:192
+msgid "Show Location"
+msgstr "Konum Göster"
+
 #: secretary/admin/event.py:26
 msgid "Event Info"
 msgstr "Etkinlik Bilgileri"
@@ -159,7 +163,7 @@ msgstr "Kararlar"
 msgid "Ride"
 msgstr "Sürüş"
 
-#: secretary/admin/event.py:60 secretary/admin/user.py:123
+#: secretary/admin/event.py:60 secretary/admin/user.py:125
 msgid "Important dates"
 msgstr "Önemli Tarihler"
 
@@ -176,47 +180,47 @@ msgstr "Eğitim var mı?"
 msgid "Type"
 msgstr "Tip"
 
-#: secretary/admin/user.py:78
+#: secretary/admin/user.py:80
 msgid "Personal Info"
 msgstr "Kişisel Bilgiler"
 
-#: secretary/admin/user.py:85 templates/admin/index.html:28
+#: secretary/admin/user.py:87 templates/admin/index.html:28
 msgid "Membership Info"
 msgstr "Üye Bilgileri"
 
-#: secretary/admin/user.py:100
+#: secretary/admin/user.py:102
 msgid "Health Info"
 msgstr "Sağlık Bilgileri"
 
-#: secretary/admin/user.py:113
+#: secretary/admin/user.py:115
 msgid "Permissions"
 msgstr "İzinler"
 
-#: secretary/admin/user.py:129 secretary/models.py:114
+#: secretary/admin/user.py:131 secretary/models.py:114
 msgid "Contact"
 msgstr "İletişim"
 
-#: secretary/admin/user.py:133 secretary/models.py:134
+#: secretary/admin/user.py:135 secretary/models.py:134
 msgid "Emergency Contact"
 msgstr "Acil İletişim"
 
-#: secretary/admin/user.py:137 secretary/models.py:168
+#: secretary/admin/user.py:139 secretary/models.py:168
 msgid "Vehicle"
 msgstr "Araç"
 
-#: secretary/admin/user.py:156
+#: secretary/admin/user.py:158
 msgid "Add dues to selected users"
 msgstr "Seçilen üyelere aidat ekle"
 
-#: secretary/admin/user.py:163
+#: secretary/admin/user.py:165
 msgid "No period found!"
 msgstr "Dönem bulunamadı!"
 
-#: secretary/admin/user.py:179
+#: secretary/admin/user.py:181
 msgid "Bulk added dues"
 msgstr "Toplu eklenen aidat"
 
-#: secretary/admin/user.py:183
+#: secretary/admin/user.py:185
 #, python-brace-format
 msgid "{count} user(s) added dues for {period} period."
 msgstr "{count} üyeye {period} dönemine ait aidat eklendi."

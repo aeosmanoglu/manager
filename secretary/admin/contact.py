@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.shortcuts import redirect
+from django.utils.translation import gettext_lazy as _
+from unfold.decorators import action
 
 from core.admin import DefaultAdmin
 from secretary.models import Contact
@@ -6,6 +9,7 @@ from secretary.models import Contact
 
 @admin.register(Contact)
 class ContactAdmin(DefaultAdmin):
+    actions_row = ["show_location"]
     list_display = ("user", "type", "phone", "address", "what3words")
     ordering = ("user", "type")
     readonly_fields = ("created_at", "updated_at")
@@ -55,3 +59,10 @@ class ContactAdmin(DefaultAdmin):
             else:
                 kwargs["queryset"] = UserModel.objects.filter(pk=request.user.pk)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    @action(description=_("Show Location"), attrs={"target": "_blank"})
+    def show_location(self, request, object_id):
+        contact = self.get_object(request, object_id)
+        if contact.what3words:
+            return redirect(f"https://what3words.com/{contact.what3words}")
+        return None

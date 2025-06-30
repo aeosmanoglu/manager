@@ -1,5 +1,6 @@
 from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.shortcuts import redirect
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from unfold.admin import StackedInline, TabularInline
@@ -39,6 +40,7 @@ class VehicleInline(StackedInline):
 @admin.register(User)
 class UserAdmin(BaseUserAdmin, DefaultAdmin):
     actions = ["add_dues"]
+    actions_row = ["show_location"]
     add_form = UserCreationForm
     change_password_form = AdminPasswordChangeForm
     form = UserChangeForm
@@ -186,6 +188,13 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
             ),
             level=messages.SUCCESS,
         )
+
+    @action(description=_("Show Location"), attrs={"target": "_blank"})
+    def show_location(self, request, object_id):
+        user = self.get_object(request, object_id)
+        if user.contacts.exists():
+            return redirect(f"https://what3words.com/{user.contacts.first().what3words}")
+        return None
 
     def has_add_dues_permission(self, request, obj=None):
         return request.user.is_superuser or request.user.has_perm("treasury.add_dues")
