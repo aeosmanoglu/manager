@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from core.callbacks.utils import one_year_ago
 from secretary.enums import EventTypes
 from treasury.enums import StatementType
-from treasury.models import Dues, Statement
+from treasury.models import Due, Statement
 
 
 def get_ride_count(user):
@@ -36,7 +36,7 @@ def get_balance():
         or 0
     )
     paid_dues = (
-        Dues.objects.filter(is_paid=True).aggregate(total=models.Sum("amount"))["total"]
+        Due.objects.filter(is_paid=True).aggregate(total=models.Sum("amount"))["total"]
         or 0
     )
     expenses = (

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 from unfold.contrib.filters.admin import (
     BooleanRadioFilter,
     ChoicesCheckboxFilter,
@@ -10,7 +11,7 @@ from unfold.decorators import display
 
 from core.admin import DefaultAdmin
 from treasury.enums import StatementType
-from treasury.models import Dues, Inventory, InventoryItem, Period, Statement
+from treasury.models import Due, Inventory, InventoryItem, Period, Statement
 
 
 @admin.register(Period)
@@ -19,8 +20,8 @@ class PeriodAdmin(DefaultAdmin):
     search_fields = ("month", "year")
 
 
-@admin.register(Dues)
-class DuesAdmin(DefaultAdmin):
+@admin.register(Due)
+class DueAdmin(DefaultAdmin):
     list_display = ("user", "period", "amount", "is_paid", "date", "description")
     list_filter = [
         ("period", RelatedDropdownFilter),
@@ -45,14 +46,14 @@ class StatementAdmin(DefaultAdmin):
     search_fields = ("description",)
 
     @display(
-        description="Type",
+        description=_("Type"),
         label={
-            StatementType.INCOME: "success",
-            StatementType.EXPENSE: "danger",
+            StatementType.INCOME.label: "success",
+            StatementType.EXPENSE.label: "danger",
         },
     )
     def display_type(self, obj):
-        return obj.type
+        return obj.get_type_display()
 
 
 @admin.register(Inventory)

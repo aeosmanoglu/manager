@@ -16,7 +16,7 @@ from core.callbacks.helpers import (
 from core.callbacks.utils import has_permission, one_year_ago
 from secretary.enums import EventTypes
 from secretary.models import Contact, EmergencyContact, Event, User, Vehicle
-from treasury.models import Dues
+from treasury.models import Due
 
 
 def get_all_users():
@@ -43,7 +43,7 @@ def get_user_attendance():
 
 
 def get_user_dues():
-    all_dues = Dues.objects.filter(date__gte=one_year_ago())
+    all_dues = Due.objects.filter(date__gte=one_year_ago())
     user_id_to_dues = defaultdict(list)
     for d in all_dues:
         user_id_to_dues[d.user_id].append(d)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 13:11+0300\n"
+"POT-Creation-Date: 2025-06-30 13:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr "Temiz"
 #: core/callbacks/helpers.py:122 core/callbacks/helpers.py:138
 #: core/callbacks/helpers.py:156 secretary/models.py:85 secretary/models.py:97
 #: secretary/models.py:126 secretary/models.py:146
-#: sergeant_at_arms/models.py:14
+#: sergeant_at_arms/models.py:14 treasury/models.py:44 treasury/models.py:101
 msgid "User"
 msgstr "Üye"
 
@@ -110,27 +110,27 @@ msgstr "Araçlar"
 msgid "Groups"
 msgstr "Gruplar"
 
-#: core/settings.py:277
+#: core/settings.py:277 treasury/apps.py:8
 msgid "Treasury"
 msgstr "Kasa"
 
-#: core/settings.py:280
+#: core/settings.py:280 treasury/models.py:83
 msgid "Statements"
 msgstr "Gelir ve Giderler"
 
-#: core/settings.py:288
+#: core/settings.py:288 treasury/models.py:65
 msgid "Dues"
 msgstr "Aidatlar"
 
-#: core/settings.py:297
+#: core/settings.py:297 treasury/models.py:33
 msgid "Periods"
 msgstr "Dönemler"
 
-#: core/settings.py:305
+#: core/settings.py:305 treasury/models.py:107
 msgid "Inventories"
 msgstr "Envanterler"
 
-#: core/settings.py:313
+#: core/settings.py:313 treasury/models.py:119
 msgid "Inventory Items"
 msgstr "Envanter Öğeleri"
 
@@ -172,6 +172,7 @@ msgid "Has Training"
 msgstr "Eğitim var mı?"
 
 #: secretary/admin/event.py:81 secretary/models.py:103 secretary/models.py:177
+#: treasury/admin.py:49 treasury/models.py:73
 msgid "Type"
 msgstr "Tip"
 
@@ -309,7 +310,7 @@ msgstr "What3Words"
 msgid "%(type_display)s address"
 msgstr "%(type_display)s adresi"
 
-#: secretary/models.py:128 secretary/models.py:180
+#: secretary/models.py:128 secretary/models.py:180 treasury/models.py:114
 msgid "Name"
 msgstr "Ad"
 
@@ -325,7 +326,7 @@ msgstr "Marka"
 msgid "Model"
 msgstr "Model"
 
-#: secretary/models.py:152
+#: secretary/models.py:152 treasury/models.py:27
 msgid "Year"
 msgstr "Yıl"
 
@@ -417,7 +418,7 @@ msgstr "Karar"
 msgid "Penalty"
 msgstr "Ceza"
 
-#: sergeant_at_arms/models.py:21
+#: sergeant_at_arms/models.py:21 treasury/models.py:60 treasury/models.py:79
 msgid "Date"
 msgstr "Tarih"
 
@@ -525,3 +526,56 @@ msgstr "Eksik İletişimler"
 #: templates/admin/index.html:121
 msgid "Riders"
 msgstr "Sürücüler"
+
+#: treasury/enums.py:6
+msgid "Income"
+msgstr "Gelir"
+
+#: treasury/enums.py:7
+msgid "Expense"
+msgstr "Gider"
+
+#: treasury/models.py:19
+msgid "Month"
+msgstr "Ay"
+
+#: treasury/models.py:32 treasury/models.py:50
+msgid "Period"
+msgstr "Dönem"
+
+#: treasury/models.py:57 treasury/models.py:77
+msgid "Amount"
+msgstr "Tutar"
+
+#: treasury/models.py:59
+msgid "Is Paid"
+msgstr "Ödenmiş mi?"
+
+#: treasury/models.py:61 treasury/models.py:75 treasury/models.py:103
+#: treasury/models.py:115
+msgid "Description"
+msgstr "Açıklama"
+
+#: treasury/models.py:64
+msgid "Due"
+msgstr "Aidat"
+
+#: treasury/models.py:82
+msgid "Statement"
+msgstr "Gelir ve Gider"
+
+#: treasury/models.py:94
+msgid "Item"
+msgstr "Öğe"
+
+#: treasury/models.py:96
+msgid "Quantity"
+msgstr "Miktar"
+
+#: treasury/models.py:106
+msgid "Inventory"
+msgstr "Envanter"
+
+#: treasury/models.py:118
+msgid "Inventory Item"
+msgstr "Envanter Öğesi"

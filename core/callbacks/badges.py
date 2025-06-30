@@ -1,5 +1,5 @@
-from treasury.models import Dues
+from treasury.models import Due
 
 
 def dues_callback(_):
-    return Dues.objects.filter(is_paid=False).count()
+    return Due.objects.filter(is_paid=False).count()

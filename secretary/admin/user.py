@@ -15,7 +15,7 @@ from core import settings
 from core.admin import DefaultAdmin
 from secretary.enums import DrivingLicenseType, Titles
 from secretary.models import Contact, EmergencyContact, User, Vehicle
-from treasury.models import Dues, Period
+from treasury.models import Due, Period
 
 
 class ContactInline(TabularInline):
@@ -171,7 +171,7 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
                 amount = settings.MEMBER_DUE_AMOUNT
             else:
                 continue
-            Dues.objects.create(
+            Due.objects.create(
                 user=user,
                 period=last_period,
                 amount=amount,

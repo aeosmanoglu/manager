@@ -287,9 +287,9 @@ UNFOLD = {
                     {
                         "title": _("Dues"),
                         "icon": "face_down",
-                        "link": reverse_lazy("admin:treasury_dues_changelist"),
+                        "link": reverse_lazy("admin:treasury_due_changelist"),
                         "permission": lambda request: request.user.has_perm(
-                            "treasury.view_dues"
+                            "treasury.view_due"
                         ),
                         "badge": "core.callbacks.badges.dues_callback",
                     },
