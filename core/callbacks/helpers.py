@@ -153,6 +153,6 @@ def get_motorcycle_table(all_vehicles, user_id_to_name, user_id_to_license):
     ]
     motorcycle_data.sort(key=lambda x: (not x[3], -x[2]))
     return {
-        "headers": [_("User"), _("License"), "cc", _("Active")],
+        "headers": [_("User"), _("License"), "CC", _("Active")],
         "rows": motorcycle_data,
     }
