@@ -126,15 +126,15 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
     )
     add_fieldsets = ((None, {"fields": ("email", "password1", "password2")}),)
 
-    @display(description="Contact", boolean=True)
+    @display(description=_("Contact"), boolean=True)
     def display_contact(self, obj):
         return obj.contacts.exists()
 
-    @display(description="Emergency Contact", boolean=True)
+    @display(description=_("Emergency Contact"), boolean=True)
     def display_emergency_contact(self, obj):
         return obj.emergency_contacts.count() > 1
 
-    @display(description="Vehicle", boolean=True)
+    @display(description=_("Vehicle"), boolean=True)
     def display_vehicle(self, obj):
         return obj.vehicles.exists()
 

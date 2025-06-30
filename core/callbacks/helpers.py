@@ -17,7 +17,9 @@ def get_debt_count(user):
     total_debt = unpaid_dues.aggregate(total=models.Sum("amount"))["total"]
     debt_count = unpaid_dues.count()
     total_debt_str = f"{total_debt} TL" if total_debt else _("No Debt")
-    debt_count_str = _("%(count)s time") % {"count": debt_count} if debt_count else _("All Clear")
+    debt_count_str = (
+        _("%(count)s time") % {"count": debt_count} if debt_count else _("All Clear")
+    )
     return total_debt_str, debt_count_str
 
 
@@ -132,7 +134,10 @@ def get_contact_table(users, contact_count, emergency_contact_count, user_id_to_
         or emergency_contact_count.get(u["id"], 0) < 2
     ]
     contact_data.sort(key=lambda x: (x[1], x[2]))
-    return {"headers": [_("User"), _("Contacts"), _("Emergency Contacts")], "rows": contact_data}
+    return {
+        "headers": [_("User"), _("Contacts"), _("Emergency Contacts")],
+        "rows": contact_data,
+    }
 
 
 def get_motorcycle_table(all_vehicles, user_id_to_name, user_id_to_license):
@@ -147,4 +152,7 @@ def get_motorcycle_table(all_vehicles, user_id_to_name, user_id_to_license):
         if v.user_id in user_id_to_name
     ]
     motorcycle_data.sort(key=lambda x: (not x[3], -x[2]))
-    return {"headers": [_("User"), _("License"), "cc", _("Active")], "rows": motorcycle_data}
+    return {
+        "headers": [_("User"), _("License"), "cc", _("Active")],
+        "rows": motorcycle_data,
+    }

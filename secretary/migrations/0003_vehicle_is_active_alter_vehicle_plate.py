@@ -5,20 +5,29 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('secretary', '0002_alter_emergencycontact_unique_together'),
+        ("secretary", "0002_alter_emergencycontact_unique_together"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='vehicle',
-            name='is_active',
+            model_name="vehicle",
+            name="is_active",
             field=models.BooleanField(default=True),
         ),
         migrations.AlterField(
-            model_name='vehicle',
-            name='plate',
-            field=models.CharField(help_text='Format: 06ABC123', max_length=10, unique=True, validators=[django.core.validators.RegexValidator(message='Please enter a valid Turkish license plate. (Ex: 06ABC123)', regex='^[0-9]{2}[A-Z]{1,3}[0-9]{2,4}$')]),
+            model_name="vehicle",
+            name="plate",
+            field=models.CharField(
+                help_text="Format: 06ABC123",
+                max_length=10,
+                unique=True,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        message="Please enter a valid Turkish license plate. (Ex: 06ABC123)",
+                        regex="^[0-9]{2}[A-Z]{1,3}[0-9]{2,4}$",
+                    )
+                ],
+            ),
         ),
     ]

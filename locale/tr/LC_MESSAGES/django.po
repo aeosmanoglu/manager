@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 12:45+0300\n"
+"POT-Creation-Date: 2025-06-30 13:02+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: core/callbacks/dashboard.py:112 core/callbacks/dashboard.py:114
-#: core/callbacks/helpers.py:120
+#: core/callbacks/helpers.py:122
 msgid "Total"
 msgstr "Toplam"
 
@@ -31,41 +31,41 @@ msgstr "Yok"
 msgid "No Debt"
 msgstr "Yok"
 
-#: core/callbacks/helpers.py:20
+#: core/callbacks/helpers.py:21
 #, python-format
 msgid "%(count)s time"
 msgstr "%(count)s kere"
 
-#: core/callbacks/helpers.py:20 core/callbacks/helpers.py:26
+#: core/callbacks/helpers.py:21 core/callbacks/helpers.py:28
 msgid "All Clear"
 msgstr "Temiz"
 
-#: core/callbacks/helpers.py:102 core/callbacks/helpers.py:107
-#: core/callbacks/helpers.py:120 core/callbacks/helpers.py:135
-#: core/callbacks/helpers.py:150 secretary/models.py:89 secretary/models.py:110
-#: secretary/models.py:124
+#: core/callbacks/helpers.py:104 core/callbacks/helpers.py:109
+#: core/callbacks/helpers.py:122 core/callbacks/helpers.py:138
+#: core/callbacks/helpers.py:156 secretary/models.py:85 secretary/models.py:97
+#: secretary/models.py:126 secretary/models.py:146
 msgid "User"
 msgstr "Üye"
 
-#: core/callbacks/helpers.py:102 core/callbacks/helpers.py:107
+#: core/callbacks/helpers.py:104 core/callbacks/helpers.py:109
 msgid "Streak"
 msgstr "Sayı"
 
-#: core/callbacks/helpers.py:135 core/settings.py:252
+#: core/callbacks/helpers.py:138 core/settings.py:252 secretary/models.py:115
 msgid "Contacts"
 msgstr "İletişimler"
 
-#: core/callbacks/helpers.py:135 core/settings.py:257
+#: core/callbacks/helpers.py:138 core/settings.py:257 secretary/models.py:135
 msgid "Emergency Contacts"
 msgstr "Acil İletişimler"
 
-#: core/callbacks/helpers.py:150 secretary/admin/user.py:142
+#: core/callbacks/helpers.py:156 secretary/admin/user.py:142
 #: secretary/models.py:73 templates/admin/index.html:31
 #: templates/admin/index.html:33
 msgid "License"
 msgstr "Ehliyet"
 
-#: core/callbacks/helpers.py:150
+#: core/callbacks/helpers.py:156
 msgid "Active"
 msgstr "Aktif"
 
@@ -93,15 +93,15 @@ msgstr "Pano"
 msgid "Secretary"
 msgstr "Sekreterlik"
 
-#: core/settings.py:239
+#: core/settings.py:239 secretary/models.py:86
 msgid "Users"
 msgstr "Üyeler"
 
-#: core/settings.py:244
+#: core/settings.py:244 secretary/models.py:206
 msgid "Events"
 msgstr "Etkinlikler"
 
-#: core/settings.py:264
+#: core/settings.py:264 secretary/models.py:169
 msgid "Vehicles"
 msgstr "Araçlar"
 
@@ -133,7 +133,7 @@ msgstr "Envanterler"
 msgid "Inventory Items"
 msgstr "Envanter Öğeleri"
 
-#: core/settings.py:323
+#: core/settings.py:323 sergeant_at_arms/apps.py:8
 msgid "Sergeant at Arms"
 msgstr "Çavuş"
 
@@ -146,11 +146,11 @@ msgid "Event Info"
 msgstr "Etkinlik Bilgileri"
 
 #: secretary/admin/event.py:39 secretary/admin/event.py:65
-#: secretary/models.py:174
+#: secretary/models.py:201
 msgid "Attendance"
 msgstr "Katılım"
 
-#: secretary/admin/event.py:46 secretary/models.py:161
+#: secretary/admin/event.py:46 secretary/models.py:188
 msgid "Decisions"
 msgstr "Kararlar"
 
@@ -170,7 +170,7 @@ msgstr "Katılım Oranı"
 msgid "Has Training"
 msgstr "Eğitim var mı?"
 
-#: secretary/admin/event.py:81 secretary/models.py:94 secretary/models.py:150
+#: secretary/admin/event.py:81 secretary/models.py:103 secretary/models.py:177
 msgid "Type"
 msgstr "Tip"
 
@@ -190,6 +190,18 @@ msgstr "Sağlık Bilgileri"
 msgid "Permissions"
 msgstr "İzinler"
 
+#: secretary/admin/user.py:129 secretary/models.py:114
+msgid "Contact"
+msgstr "İletişim"
+
+#: secretary/admin/user.py:133 secretary/models.py:134
+msgid "Emergency Contact"
+msgstr "Acil İletişim"
+
+#: secretary/admin/user.py:137 secretary/models.py:168
+msgid "Vehicle"
+msgstr "Araç"
+
 #: secretary/admin/user.py:156
 msgid "Add dues to selected users"
 msgstr "Seçilen üyelere aidat ekle"
@@ -207,7 +219,7 @@ msgstr "Toplu eklenen aidat"
 msgid "{count} user(s) added dues for {period} period."
 msgstr "{count} üyeye {period} dönemine ait aidat eklendi."
 
-#: secretary/admin/vehicle.py:39 secretary/models.py:138
+#: secretary/admin/vehicle.py:39 secretary/models.py:161
 msgid "Engine Capacity"
 msgstr "Motor Hacmi"
 
@@ -279,98 +291,102 @@ msgstr "Kan Grubu"
 msgid "Sponsor"
 msgstr "Sponsor"
 
-#: secretary/models.py:97 secretary/models.py:113
+#: secretary/models.py:106 secretary/models.py:129
 msgid "Phone"
 msgstr "Telefon"
 
-#: secretary/models.py:99
+#: secretary/models.py:108
 msgid "Address"
 msgstr "Adres"
 
-#: secretary/models.py:101
+#: secretary/models.py:110
 msgid "What3Words"
 msgstr "What3Words"
 
-#: secretary/models.py:105
+#: secretary/models.py:118
 #, python-format
 msgid "%(type_display)s address"
 msgstr "%(type_display)s adresi"
 
-#: secretary/models.py:112 secretary/models.py:153
+#: secretary/models.py:128 secretary/models.py:180
 msgid "Name"
 msgstr "Ad"
 
-#: secretary/models.py:114
+#: secretary/models.py:130
 msgid "Relationship"
 msgstr "İlişki"
 
-#: secretary/models.py:125
+#: secretary/models.py:148
 msgid "Brand"
 msgstr "Marka"
 
-#: secretary/models.py:126
+#: secretary/models.py:149
 msgid "Model"
 msgstr "Model"
 
-#: secretary/models.py:129
+#: secretary/models.py:152
 msgid "Year"
 msgstr "Yıl"
 
-#: secretary/models.py:136
+#: secretary/models.py:159
 msgid "Plate"
 msgstr "Plaka"
 
-#: secretary/models.py:139
+#: secretary/models.py:162
 msgid "Last Maintenance Date"
 msgstr "Son Bakım Tarihi"
 
-#: secretary/models.py:140
+#: secretary/models.py:163
 msgid "Inspection Expiry Date"
 msgstr "Muayene Sonu Tarihi"
 
-#: secretary/models.py:141
+#: secretary/models.py:164
 msgid "Insurance Expiry Date"
 msgstr "Sigorta Sonu Tarihi"
 
-#: secretary/models.py:142
+#: secretary/models.py:165
 msgid "Is Active"
 msgstr "Aktif mi?"
 
-#: secretary/models.py:153
+#: secretary/models.py:180
 msgid "Weekly Meeting"
 msgstr "Haftalık Toplantı"
 
-#: secretary/models.py:155
+#: secretary/models.py:182
 msgid "Date Time"
 msgstr "Tarih ve Saat"
 
-#: secretary/models.py:157
+#: secretary/models.py:184
 msgid "Club House"
 msgstr "Kulüb Evi"
 
-#: secretary/models.py:157
+#: secretary/models.py:184
 msgid "Location"
 msgstr "Konum"
 
-#: secretary/models.py:159
+#: secretary/models.py:186
 msgid "Agenda"
 msgstr "Gündem"
 
-#: secretary/models.py:162
+#: secretary/models.py:189
 msgid "Training Note"
 msgstr "Eğitim Notu"
 
-#: secretary/models.py:164
+#: secretary/models.py:191
 msgid "Has Ride"
 msgstr "Sürüş var mı?"
 
-#: secretary/models.py:166
+#: secretary/models.py:193
 msgid "Destination"
 msgstr "Varış Noktası"
 
-#: secretary/models.py:168
+#: secretary/models.py:195
 msgid "Ride Note"
 msgstr "Sürüş Notu"
+
+#: secretary/models.py:205
+msgid "Event"
+msgstr "Etkinlik"
 
 #: templates/admin/index.html:8
 msgid "Django site admin"

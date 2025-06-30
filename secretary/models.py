@@ -90,7 +90,12 @@ class User(AbstractUser, BaseModel):
 
 
 class Contact(BaseModel):
-    user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="contacts", verbose_name=_("User"))
+    user = models.ForeignKey(
+        "User",
+        on_delete=models.CASCADE,
+        related_name="contacts",
+        verbose_name=_("User"),
+    )
     type = models.CharField(
         max_length=5,
         choices=AddressType.choices,
@@ -115,7 +120,10 @@ class Contact(BaseModel):
 
 class EmergencyContact(BaseModel):
     user = models.ForeignKey(
-        "User", on_delete=models.CASCADE, related_name="emergency_contacts", verbose_name=_("User")
+        "User",
+        on_delete=models.CASCADE,
+        related_name="emergency_contacts",
+        verbose_name=_("User"),
     )
     name = models.CharField(max_length=20, verbose_name=_("Name"))
     phone = PhoneNumberField(help_text="Format: +905555555555", verbose_name=_("Phone"))
@@ -131,7 +139,12 @@ class EmergencyContact(BaseModel):
 
 
 class Vehicle(BaseModel):
-    user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="vehicles", verbose_name=_("User"))
+    user = models.ForeignKey(
+        "User",
+        on_delete=models.CASCADE,
+        related_name="vehicles",
+        verbose_name=_("User"),
+    )
     brand = models.CharField(max_length=20, verbose_name=_("Brand"))
     model = models.CharField(max_length=20, verbose_name=_("Model"))
     year = models.IntegerField(
