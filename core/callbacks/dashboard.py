@@ -1,5 +1,7 @@
 from collections import defaultdict
 
+from django.utils.translation import gettext_lazy as _
+
 from core.callbacks.helpers import (
     get_balance,
     get_contact_table,
@@ -79,7 +81,6 @@ def get_event_and_ride_ids():
 
 
 def build_dashboard_context():
-    """Yönetici paneli için gerekli tüm tablo ve özet verileri hazırlar."""
     users = get_all_users()
     user_id_to_name, user_id_to_license = get_user_id_maps(users)
     user_attendance = get_user_attendance()
@@ -108,9 +109,9 @@ def build_dashboard_context():
         "ride_table": ride_table,
         "due_table": due_table,
         "contact_table": contact_table,
-        "contact_table_footer": f"Total {len(contact_table['rows']) if contact_table else 0}",
+        "contact_table_footer": f"{_('Total')} {len(contact_table['rows']) if contact_table else 0}",
         "motorcycle_table": motorcycle_table,
-        "motorcycle_table_footer": f"Total {len(motorcycle_table['rows']) if motorcycle_table else 0}",
+        "motorcycle_table_footer": f"{_('Total')} {len(motorcycle_table['rows']) if motorcycle_table else 0}",
     }
 
 

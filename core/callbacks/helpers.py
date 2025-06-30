@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from core.callbacks.utils import one_year_ago
 from secretary.enums import EventTypes
@@ -7,29 +8,25 @@ from treasury.models import Dues, Statement
 
 
 def get_ride_count(user):
-    """Kullanıcının katıldığı sürüş sayısını döndürür."""
     count = user.attended_events.filter(type=EventTypes.RIDE).count()
-    return count if count else "No Ride"
+    return count if count else _("No Ride")
 
 
-def get_debt_count(user) -> tuple:
-    """Kullanıcının toplam borcunu ve borç adedini döndürür."""
+def get_debt_count(user):
     unpaid_dues = user.dues.filter(is_paid=False)
     total_debt = unpaid_dues.aggregate(total=models.Sum("amount"))["total"]
     debt_count = unpaid_dues.count()
-    total_debt_str = f"{total_debt} TL" if total_debt else "No Debt"
-    debt_count_str = f"{debt_count} Time" if debt_count else "All Clear"
+    total_debt_str = f"{total_debt} TL" if total_debt else _("No Debt")
+    debt_count_str = _("%(count)s time") % {"count": debt_count} if debt_count else _("All Clear")
     return total_debt_str, debt_count_str
 
 
 def get_penalty_count(user):
-    """Kullanıcının son bir yıldaki ceza sayısını döndürür."""
     count = user.disciplines.filter(date__gte=one_year_ago(), is_guilty=True).count()
-    return count if count else "All Clear"
+    return count if count else _("All Clear")
 
 
 def get_balance():
-    """Kasadaki toplam bakiyeyi döndürür."""
     incomes = (
         Statement.objects.filter(type=StatementType.INCOME).aggregate(
             total=models.Sum("amount")
@@ -50,7 +47,6 @@ def get_balance():
 
 
 def _get_absence_table(users, user_attendance, all_ids, user_id_to_name, min_streak=2):
-    """Kullanıcıların ardışık katılmadığı etkinlik/sürüş serilerini hesaplar. Sadece üyelik tarihinden sonraki etkinlikler dikkate alınır."""
     absence_data = []
 
     for u in users:
@@ -100,21 +96,18 @@ def _get_absence_table(users, user_attendance, all_ids, user_id_to_name, min_str
 
 
 def get_event_absence_table(users, user_attendance, all_events, user_id_to_name):
-    """Etkinlik yoklama tablosu döndürür."""
     rows = _get_absence_table(
         users, user_attendance, all_events, user_id_to_name, min_streak=4
     )
-    return {"headers": ["User", "Streak"], "rows": rows}
+    return {"headers": [_("User"), _("Streak")], "rows": rows}
 
 
 def get_ride_absence_table(users, user_attendance, all_rides, user_id_to_name):
-    """Sürüş yoklama tablosu döndürür."""
     rows = _get_absence_table(users, user_attendance, all_rides, user_id_to_name)
-    return {"headers": ["User", "Streak"], "rows": rows}
+    return {"headers": [_("User"), _("Streak")], "rows": rows}
 
 
 def get_due_table(users, user_id_to_dues, user_id_to_name):
-    """Kullanıcıların ödenmemiş aidat sayılarını döndürür."""
     due_data = [
         [
             user_id_to_name[u["id"]],
@@ -124,11 +117,10 @@ def get_due_table(users, user_id_to_dues, user_id_to_name):
         if sum(1 for d in user_id_to_dues.get(u["id"], []) if not d.is_paid) > 0
     ]
     due_data.sort(key=lambda x: x[1], reverse=True)
-    return {"headers": ["User", "Total"], "rows": due_data}
+    return {"headers": [_("User"), _("Total")], "rows": due_data}
 
 
 def get_contact_table(users, contact_count, emergency_contact_count, user_id_to_name):
-    """Kullanıcıların iletişim ve acil iletişim eksiklerini döndürür."""
     contact_data = [
         [
             user_id_to_name[u["id"]],
@@ -140,11 +132,10 @@ def get_contact_table(users, contact_count, emergency_contact_count, user_id_to_
         or emergency_contact_count.get(u["id"], 0) < 2
     ]
     contact_data.sort(key=lambda x: (x[1], x[2]))
-    return {"headers": ["User", "Contacts", "Emergency Contacts"], "rows": contact_data}
+    return {"headers": [_("User"), _("Contacts"), _("Emergency Contacts")], "rows": contact_data}
 
 
 def get_motorcycle_table(all_vehicles, user_id_to_name, user_id_to_license):
-    """Kullanıcıların motosiklet bilgilerini döndürür."""
     motorcycle_data = [
         [
             user_id_to_name[v.user_id],
@@ -156,4 +147,4 @@ def get_motorcycle_table(all_vehicles, user_id_to_name, user_id_to_license):
         if v.user_id in user_id_to_name
     ]
     motorcycle_data.sort(key=lambda x: (not x[3], -x[2]))
-    return {"headers": ["User", "License", "CC", "Active"], "rows": motorcycle_data}
+    return {"headers": [_("User"), _("License"), "cc", _("Active")], "rows": motorcycle_data}

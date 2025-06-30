@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 09:07+0300\n"
+"POT-Creation-Date: 2025-06-30 10:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,55 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: core/callbacks/dashboard.py:112 core/callbacks/dashboard.py:114
+#: core/callbacks/helpers.py:120
+msgid "Total"
+msgstr "Toplam"
+
+#: core/callbacks/helpers.py:12
+msgid "No Ride"
+msgstr "Yok"
+
+#: core/callbacks/helpers.py:19
+msgid "No Debt"
+msgstr "Yok"
+
+#: core/callbacks/helpers.py:20
+#, python-format
+msgid "%(count)s time"
+msgstr "%(count)s kere"
+
+#: core/callbacks/helpers.py:20 core/callbacks/helpers.py:26
+msgid "All Clear"
+msgstr "Temiz"
+
+#: core/callbacks/helpers.py:102 core/callbacks/helpers.py:107
+#: core/callbacks/helpers.py:120 core/callbacks/helpers.py:135
+#: core/callbacks/helpers.py:150
+msgid "User"
+msgstr ""
+
+#: core/callbacks/helpers.py:102 core/callbacks/helpers.py:107
+msgid "Streak"
+msgstr "Sayı"
+
+#: core/callbacks/helpers.py:135 core/settings.py:252
+msgid "Contacts"
+msgstr "İletişimler"
+
+#: core/callbacks/helpers.py:135 core/settings.py:257
+msgid "Emergency Contacts"
+msgstr "Acil İletişimler"
+
+#: core/callbacks/helpers.py:150 templates/admin/index.html:31
+#: templates/admin/index.html:33
+msgid "License"
+msgstr "Ehliyet"
+
+#: core/callbacks/helpers.py:150
+msgid "Active"
+msgstr "Aktif"
 
 #: core/models.py:6
 msgid "Created at"
@@ -49,14 +98,6 @@ msgstr "Kullanıcılar"
 #: core/settings.py:244
 msgid "Events"
 msgstr "Etkinlikler"
-
-#: core/settings.py:252
-msgid "Contacts"
-msgstr "İletişimler"
-
-#: core/settings.py:257
-msgid "Emergency Contacts"
-msgstr "Acil İletişimler"
 
 #: core/settings.py:264
 msgid "Vehicles"
@@ -101,3 +142,100 @@ msgstr "Cezalar"
 #: templates/admin/index.html:8
 msgid "Django site admin"
 msgstr "Django site yönetimi"
+
+#: templates/admin/index.html:28
+msgid "Membership Info"
+msgstr "Üye Bilgileri"
+
+#: templates/admin/index.html:40
+msgid "Sponsor"
+msgstr "Sponsor"
+
+#: templates/admin/index.html:43
+msgid "deposit"
+msgstr "emanet"
+
+#: templates/admin/index.html:46
+msgid "contact"
+msgstr "iletişim"
+
+#: templates/admin/index.html:48
+msgid "No contacts added"
+msgstr "Hiçbir iletişim eklenmedi"
+
+#: templates/admin/index.html:51
+msgid "emergency contacts"
+msgstr "acil iletişim"
+
+#: templates/admin/index.html:53
+msgid "emergency contact"
+msgstr "acil iletişim"
+
+#: templates/admin/index.html:55
+msgid "No emergency contacts added"
+msgstr "Hiçbir acil iletişim eklenmedi"
+
+#: templates/admin/index.html:67
+msgid "Maintenance"
+msgstr "Bakım"
+
+#: templates/admin/index.html:68
+msgid "Inspection"
+msgstr "Muayene"
+
+#: templates/admin/index.html:69
+msgid "Insurance"
+msgstr "Sigorta"
+
+#: templates/admin/index.html:73
+msgid "Vehicle Info"
+msgstr "Araç Bilgileri"
+
+#: templates/admin/index.html:74
+msgid "No vehicle"
+msgstr "Hiçbir araç eklenmedi"
+
+#: templates/admin/index.html:82
+msgid "My Participations"
+msgstr "Etkinliklerim"
+
+#: templates/admin/index.html:85
+msgid "My Rides"
+msgstr "Sürüşlerim"
+
+#: templates/admin/index.html:88
+msgid "My Debts"
+msgstr "Borçlarım"
+
+#: templates/admin/index.html:91
+msgid "My Penalties"
+msgstr "Cezalarım"
+
+#: templates/admin/index.html:91 templates/admin/index.html:107
+#: templates/admin/index.html:110 templates/admin/index.html:113
+msgid "in a year"
+msgstr "bir yılda"
+
+#: templates/admin/index.html:95
+msgid "Net Balance"
+msgstr "Kasa Bakiyesi"
+
+#: templates/admin/index.html:107
+msgid "Event Absences"
+msgstr "Etkinlik Yoklukları"
+
+#: templates/admin/index.html:110
+msgid "Ride Absences"
+msgstr "Sürüş Yoklukları"
+
+#: templates/admin/index.html:113
+msgid "Unpaid Dues"
+msgstr "Ödenmemiş Aidatlar"
+
+#: templates/admin/index.html:118
+msgid "Missing Contacts"
+msgstr "Eksik İletişimler"
+
+#: templates/admin/index.html:121
+msgid "Riders"
+msgstr "Sürücüler"
