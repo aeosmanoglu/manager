@@ -223,25 +223,25 @@ UNFOLD = {
         "show_all_applications": True,
         "navigation": [
             {
-                "title": "Navigation",
+                "title": _("Navigation"),
                 "items": [
                     {
-                        "title": "Dashboard",
+                        "title": _("Dashboard"),
                         "icon": "dashboard",
                         "link": reverse_lazy("admin:index"),
                     }
                 ],
             },
             {
-                "title": "Secretary",
+                "title": _("Secretary"),
                 "items": [
                     {
-                        "title": "Users",
+                        "title": _("Users"),
                         "icon": "sports_motorsports",
                         "link": reverse_lazy("admin:secretary_user_changelist"),
                     },
                     {
-                        "title": "Events",
+                        "title": _("Events"),
                         "icon": "event",
                         "link": reverse_lazy("admin:secretary_event_changelist"),
                         "permission": lambda request: request.user.has_perm(
@@ -249,24 +249,24 @@ UNFOLD = {
                         ),
                     },
                     {
-                        "title": "Contacts",
+                        "title": _("Contacts"),
                         "icon": "home",
                         "link": reverse_lazy("admin:secretary_contact_changelist"),
                     },
                     {
-                        "title": "Emergency Contacts",
+                        "title": _("Emergency Contacts"),
                         "icon": "emergency",
                         "link": reverse_lazy(
                             "admin:secretary_emergencycontact_changelist"
                         ),
                     },
                     {
-                        "title": "Vehicles",
+                        "title": _("Vehicles"),
                         "icon": "two_wheeler",
                         "link": reverse_lazy("admin:secretary_vehicle_changelist"),
                     },
                     {
-                        "title": "Groups",
+                        "title": _("Groups"),
                         "icon": "lock_person",
                         "link": reverse_lazy("admin:auth_group_changelist"),
                         "permission": lambda request: request.user.is_superuser,
@@ -274,10 +274,10 @@ UNFOLD = {
                 ],
             },
             {
-                "title": "Treasury",
+                "title": _("Treasury"),
                 "items": [
                     {
-                        "title": "Statements",
+                        "title": _("Statements"),
                         "icon": "swap_vert",
                         "link": reverse_lazy("admin:treasury_statement_changelist"),
                         "permission": lambda request: request.user.has_perm(
@@ -285,7 +285,7 @@ UNFOLD = {
                         ),
                     },
                     {
-                        "title": "Dues",
+                        "title": _("Dues"),
                         "icon": "face_down",
                         "link": reverse_lazy("admin:treasury_dues_changelist"),
                         "permission": lambda request: request.user.has_perm(
@@ -294,7 +294,7 @@ UNFOLD = {
                         "badge": "core.callbacks.badges.dues_callback",
                     },
                     {
-                        "title": "Periods",
+                        "title": _("Periods"),
                         "icon": "calendar_month",
                         "link": reverse_lazy("admin:treasury_period_changelist"),
                         "permission": lambda request: request.user.has_perm(
@@ -302,7 +302,7 @@ UNFOLD = {
                         ),
                     },
                     {
-                        "title": "Inventories",
+                        "title": _("Inventories"),
                         "icon": "inventory",
                         "link": reverse_lazy("admin:treasury_inventory_changelist"),
                         "permission": lambda request: request.user.has_perm(
@@ -310,7 +310,7 @@ UNFOLD = {
                         ),
                     },
                     {
-                        "title": "Inventory Items",
+                        "title": _("Inventory Items"),
                         "icon": "list",
                         "link": reverse_lazy("admin:treasury_inventoryitem_changelist"),
                         "permission": lambda request: request.user.has_perm(
@@ -320,10 +320,10 @@ UNFOLD = {
                 ],
             },
             {
-                "title": "Sergeant at Arms",
+                "title": _("Sergeant at Arms"),
                 "items": [
                     {
-                        "title": "Penalties",
+                        "title": _("Penalties"),
                         "icon": "gavel",
                         "link": reverse_lazy(
                             "admin:sergeant_at_arms_discipline_changelist"
