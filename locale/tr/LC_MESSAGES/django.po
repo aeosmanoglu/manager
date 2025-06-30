@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 10:53+0300\n"
+"POT-Creation-Date: 2025-06-30 12:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,9 +42,10 @@ msgstr "Temiz"
 
 #: core/callbacks/helpers.py:102 core/callbacks/helpers.py:107
 #: core/callbacks/helpers.py:120 core/callbacks/helpers.py:135
-#: core/callbacks/helpers.py:150
+#: core/callbacks/helpers.py:150 secretary/models.py:89 secretary/models.py:110
+#: secretary/models.py:124
 msgid "User"
-msgstr ""
+msgstr "Üye"
 
 #: core/callbacks/helpers.py:102 core/callbacks/helpers.py:107
 msgid "Streak"
@@ -58,7 +59,8 @@ msgstr "İletişimler"
 msgid "Emergency Contacts"
 msgstr "Acil İletişimler"
 
-#: core/callbacks/helpers.py:150 templates/admin/index.html:31
+#: core/callbacks/helpers.py:150 secretary/admin/user.py:142
+#: secretary/models.py:73 templates/admin/index.html:31
 #: templates/admin/index.html:33
 msgid "License"
 msgstr "Ehliyet"
@@ -87,13 +89,13 @@ msgstr "Navigasyon"
 msgid "Dashboard"
 msgstr "Pano"
 
-#: core/settings.py:236
+#: core/settings.py:236 secretary/apps.py:9
 msgid "Secretary"
-msgstr "Sekreter"
+msgstr "Sekreterlik"
 
 #: core/settings.py:239
 msgid "Users"
-msgstr "Kullanıcılar"
+msgstr "Üyeler"
 
 #: core/settings.py:244
 msgid "Events"
@@ -139,17 +141,240 @@ msgstr "Çavuş"
 msgid "Penalties"
 msgstr "Cezalar"
 
-#: templates/admin/index.html:8
-msgid "Django site admin"
-msgstr "Django site yönetimi"
+#: secretary/admin/event.py:26
+msgid "Event Info"
+msgstr "Etkinlik Bilgileri"
 
-#: templates/admin/index.html:28
+#: secretary/admin/event.py:39 secretary/admin/event.py:65
+#: secretary/models.py:174
+msgid "Attendance"
+msgstr "Katılım"
+
+#: secretary/admin/event.py:46 secretary/models.py:161
+msgid "Decisions"
+msgstr "Kararlar"
+
+#: secretary/admin/event.py:53 secretary/enums.py:60
+msgid "Ride"
+msgstr "Sürüş"
+
+#: secretary/admin/event.py:60 secretary/admin/user.py:123
+msgid "Important dates"
+msgstr "Önemli Tarihler"
+
+#: secretary/admin/event.py:69
+msgid "Attendance Rate"
+msgstr "Katılım Oranı"
+
+#: secretary/admin/event.py:76
+msgid "Has Training"
+msgstr "Eğitim var mı?"
+
+#: secretary/admin/event.py:81 secretary/models.py:94 secretary/models.py:150
+msgid "Type"
+msgstr "Tip"
+
+#: secretary/admin/user.py:78
+msgid "Personal Info"
+msgstr "Kişisel Bilgiler"
+
+#: secretary/admin/user.py:85 templates/admin/index.html:28
 msgid "Membership Info"
 msgstr "Üye Bilgileri"
 
-#: templates/admin/index.html:40
+#: secretary/admin/user.py:100
+msgid "Health Info"
+msgstr "Sağlık Bilgileri"
+
+#: secretary/admin/user.py:113
+msgid "Permissions"
+msgstr "İzinler"
+
+#: secretary/admin/user.py:156
+msgid "Add dues to selected users"
+msgstr "Seçilen üyelere aidat ekle"
+
+#: secretary/admin/user.py:163
+msgid "No period found!"
+msgstr "Dönem bulunamadı!"
+
+#: secretary/admin/user.py:179
+msgid "Bulk added dues"
+msgstr "Toplu eklenen aidat"
+
+#: secretary/admin/user.py:183
+#, python-brace-format
+msgid "{count} user(s) added dues for {period} period."
+msgstr "{count} üyeye {period} dönemine ait aidat eklendi."
+
+#: secretary/admin/vehicle.py:39 secretary/models.py:138
+msgid "Engine Capacity"
+msgstr "Motor Hacmi"
+
+#: secretary/enums.py:28
+msgid "Deceased"
+msgstr "Vefat"
+
+#: secretary/enums.py:44
+msgid "Home"
+msgstr "Ev"
+
+#: secretary/enums.py:45
+msgid "Work"
+msgstr "İş"
+
+#: secretary/enums.py:46 secretary/enums.py:62
+msgid "Other"
+msgstr "Diğer"
+
+#: secretary/enums.py:50
+msgid "None"
+msgstr "Yok"
+
+#: secretary/enums.py:59
+msgid "Meeting"
+msgstr "Toplantı"
+
+#: secretary/enums.py:61
+msgid "Party"
+msgstr "Parti"
+
+#: secretary/models.py:21
+msgid "Please enter a valid Turkish license plate. (Ex: 06ABC123)"
+msgstr "Lütfen geçerli bir Türk plakası giriniz. (Örn: 06ABC123)"
+
+#: secretary/models.py:28
+msgid "Email address is required"
+msgstr "Email adresi zorunludur"
+
+#: secretary/models.py:52
+msgid "Date Joined"
+msgstr "Kayıt Tarihi"
+
+#: secretary/models.py:54
+msgid "Title"
+msgstr "Ünvan"
+
+#: secretary/models.py:57
+msgid "Birth Date"
+msgstr "Doğum Tarihi"
+
+#: secretary/models.py:58
+msgid "Allergies"
+msgstr "Alerjiler"
+
+#: secretary/models.py:60
+msgid "Medical Conditions"
+msgstr "Hastalıklar"
+
+#: secretary/models.py:62
+msgid "Medications"
+msgstr "İlaçlar"
+
+#: secretary/models.py:67
+msgid "Blood Type"
+msgstr "Kan Grubu"
+
+#: secretary/models.py:81 templates/admin/index.html:40
 msgid "Sponsor"
 msgstr "Sponsor"
+
+#: secretary/models.py:97 secretary/models.py:113
+msgid "Phone"
+msgstr "Telefon"
+
+#: secretary/models.py:99
+msgid "Address"
+msgstr "Adres"
+
+#: secretary/models.py:101
+msgid "What3Words"
+msgstr "What3Words"
+
+#: secretary/models.py:105
+#, python-format
+msgid "%(type_display)s address"
+msgstr "%(type_display)s adresi"
+
+#: secretary/models.py:112 secretary/models.py:153
+msgid "Name"
+msgstr "Ad"
+
+#: secretary/models.py:114
+msgid "Relationship"
+msgstr "İlişki"
+
+#: secretary/models.py:125
+msgid "Brand"
+msgstr "Marka"
+
+#: secretary/models.py:126
+msgid "Model"
+msgstr "Model"
+
+#: secretary/models.py:129
+msgid "Year"
+msgstr "Yıl"
+
+#: secretary/models.py:136
+msgid "Plate"
+msgstr "Plaka"
+
+#: secretary/models.py:139
+msgid "Last Maintenance Date"
+msgstr "Son Bakım Tarihi"
+
+#: secretary/models.py:140
+msgid "Inspection Expiry Date"
+msgstr "Muayene Sonu Tarihi"
+
+#: secretary/models.py:141
+msgid "Insurance Expiry Date"
+msgstr "Sigorta Sonu Tarihi"
+
+#: secretary/models.py:142
+msgid "Is Active"
+msgstr "Aktif mi?"
+
+#: secretary/models.py:153
+msgid "Weekly Meeting"
+msgstr "Haftalık Toplantı"
+
+#: secretary/models.py:155
+msgid "Date Time"
+msgstr "Tarih ve Saat"
+
+#: secretary/models.py:157
+msgid "Club House"
+msgstr "Kulüb Evi"
+
+#: secretary/models.py:157
+msgid "Location"
+msgstr "Konum"
+
+#: secretary/models.py:159
+msgid "Agenda"
+msgstr "Gündem"
+
+#: secretary/models.py:162
+msgid "Training Note"
+msgstr "Eğitim Notu"
+
+#: secretary/models.py:164
+msgid "Has Ride"
+msgstr "Sürüş var mı?"
+
+#: secretary/models.py:166
+msgid "Destination"
+msgstr "Varış Noktası"
+
+#: secretary/models.py:168
+msgid "Ride Note"
+msgstr "Sürüş Notu"
+
+#: templates/admin/index.html:8
+msgid "Django site admin"
+msgstr "Django site yönetimi"
 
 #: templates/admin/index.html:43
 msgid "deposit"
@@ -174,6 +399,10 @@ msgstr "acil iletişim"
 #: templates/admin/index.html:55
 msgid "No emergency contacts added"
 msgstr "Hiçbir acil iletişim eklenmedi"
+
+#: templates/admin/index.html:61
+msgid "Active,Inactive"
+msgstr "Aktif,Bozuk"
 
 #: templates/admin/index.html:67
 msgid "Maintenance"

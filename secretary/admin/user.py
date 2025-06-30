@@ -1,6 +1,7 @@
 from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from unfold.admin import StackedInline, TabularInline
 from unfold.contrib.filters.admin import (
     BooleanRadioFilter,
@@ -74,14 +75,14 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
     )
     fieldsets = (
         (
-            "Personal Info",
+            _("Personal Info"),
             {
                 "classes": ["tab"],
                 "fields": ("first_name", "last_name", "email", "password"),
             },
         ),
         (
-            "Membership Info",
+            _("Membership Info"),
             {
                 "classes": ["tab"],
                 "fields": (
@@ -96,7 +97,7 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
             },
         ),
         (
-            "Health Info",
+            _("Health Info"),
             {
                 "classes": ["tab"],
                 "fields": (
@@ -109,7 +110,7 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
             },
         ),
         (
-            "Permissions",
+            _("Permissions"),
             {
                 "classes": ["tab"],
                 "fields": (
@@ -119,7 +120,7 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
             },
         ),
         (
-            "Important dates",
+            _("Important dates"),
             {"classes": ["tab"], "fields": ("last_login", "created_at", "updated_at")},
         ),
     )
@@ -138,28 +139,28 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
         return obj.vehicles.exists()
 
     @display(
-        description="License",
+        description=_("License"),
         label={
-            DrivingLicenseType.NONE: "danger",
-            DrivingLicenseType.B: "warning",
-            DrivingLicenseType.A: "success",
-            DrivingLicenseType.A2: "secondary",
-            DrivingLicenseType.A1: "secondary",
-            DrivingLicenseType.M: "secondary",
+            DrivingLicenseType.NONE.label: "danger",
+            DrivingLicenseType.B.label: "warning",
+            DrivingLicenseType.A.label: "success",
+            DrivingLicenseType.A2.label: "secondary",
+            DrivingLicenseType.A1.label: "secondary",
+            DrivingLicenseType.M.label: "secondary",
         },
     )
     def display_driving_license_type(self, obj):
-        return obj.driving_license_type
+        return obj.get_driving_license_type_display()
 
     @action(
-        description="Add dues to selected users",
+        description=_("Add dues to selected users"),
         icon="paid",
         permissions=["add_dues"],
     )
     def add_dues(self, request, queryset):
         last_period = Period.objects.order_by("-year", "-month").first()
         if not last_period:
-            self.message_user(request, "No period found!", level=messages.ERROR)
+            self.message_user(request, _("No period found!"), level=messages.ERROR)
             return
         for user in queryset:
             if user.title == Titles.HANGROUND:
@@ -175,11 +176,14 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
                 period=last_period,
                 amount=amount,
                 date=timezone.now(),
-                description="Toplu eklenen aidat",
+                description=_("Bulk added dues"),
             )
         self.message_user(
             request,
-            f"{queryset.count()} user(s) added dues for {last_period} period.",
+            _("{count} user(s) added dues for {period} period.").format(
+                count=queryset.count(),
+                period=last_period,
+            ),
             level=messages.SUCCESS,
         )
 

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 from unfold.contrib.filters.admin import (
     BooleanRadioFilter,
     RangeDateFilter,
@@ -35,7 +36,7 @@ class VehicleAdmin(DefaultAdmin):
     readonly_fields = ("created_at", "updated_at")
     search_fields = ("user__first_name", "user__last_name", "plate", "brand", "model")
 
-    @display(description="Engine Capacity")
+    @display(description=_("Engine Capacity"))
     def display_engine_capacity(self, obj):
         return f"{obj.engine_capacity} cc"
 

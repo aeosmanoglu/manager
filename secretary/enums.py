@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Titles(models.IntegerChoices):
@@ -24,7 +25,7 @@ class Titles(models.IntegerChoices):
     NO_CONTACT = 62, "No Contact"
     OUT_BAD = 63, "Out Bad"
 
-    DECEASED = 70, "Deceased"
+    DECEASED = 70, _("Deceased")
     LIFE_TIME_MEMBER = 71, "Life Time Member"
 
 
@@ -40,13 +41,13 @@ class BloodType(models.TextChoices):
 
 
 class AddressType(models.TextChoices):
-    HOME = "home", "Home"
-    WORK = "work", "Work"
-    OTHER = "other", "Other"
+    HOME = "home", _("Home")
+    WORK = "work", _("Work")
+    OTHER = "other", _("Other")
 
 
 class DrivingLicenseType(models.TextChoices):
-    NONE = "none", "NONE"
+    NONE = "none", _("None")
     B = "B", "B"
     A = "A", "A"
     A2 = "A2", "A2"
@@ -55,7 +56,7 @@ class DrivingLicenseType(models.TextChoices):
 
 
 class EventTypes(models.TextChoices):
-    MEETING = "meeting", "Meeting"
-    RIDE = "ride", "Ride"
-    PARTY = "party", "Party"
-    OTHER = "other", "Other"
+    MEETING = "meeting", _("Meeting")
+    RIDE = "ride", _("Ride")
+    PARTY = "party", _("Party")
+    OTHER = "other", _("Other")
