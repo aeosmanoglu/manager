@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 from unfold.contrib.filters.admin import BooleanRadioFilter
 from unfold.decorators import display
 
@@ -14,11 +15,11 @@ class DisciplineAdmin(DefaultAdmin):
     readonly_fields = ("created_at", "updated_at")
 
     @display(
-        description="Is Guilty",
+        description=_("Is Guilty"),
         label={
-            "Yes": "danger",
-            "No": "success",
+            _("Yes"): "danger",
+            _("No"): "success",
         },
     )
     def display_is_guilty(self, obj):
-        return "Yes" if obj.is_guilty else "No"
+        return _("Yes") if obj.is_guilty else _("No")

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 13:02+0300\n"
+"POT-Creation-Date: 2025-06-30 13:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,6 +44,7 @@ msgstr "Temiz"
 #: core/callbacks/helpers.py:122 core/callbacks/helpers.py:138
 #: core/callbacks/helpers.py:156 secretary/models.py:85 secretary/models.py:97
 #: secretary/models.py:126 secretary/models.py:146
+#: sergeant_at_arms/models.py:14
 msgid "User"
 msgstr "Üye"
 
@@ -146,7 +147,7 @@ msgid "Event Info"
 msgstr "Etkinlik Bilgileri"
 
 #: secretary/admin/event.py:39 secretary/admin/event.py:65
-#: secretary/models.py:201
+#: secretary/models.py:201 sergeant_at_arms/models.py:26
 msgid "Attendance"
 msgstr "Katılım"
 
@@ -387,6 +388,46 @@ msgstr "Sürüş Notu"
 #: secretary/models.py:205
 msgid "Event"
 msgstr "Etkinlik"
+
+#: sergeant_at_arms/admin.py:18 sergeant_at_arms/models.py:20
+msgid "Is Guilty"
+msgstr "Suçlu mu?"
+
+#: sergeant_at_arms/admin.py:20 sergeant_at_arms/admin.py:25
+msgid "Yes"
+msgstr "Evet"
+
+#: sergeant_at_arms/admin.py:21 sergeant_at_arms/admin.py:25
+msgid "No"
+msgstr "Hayır"
+
+#: sergeant_at_arms/models.py:16
+msgid "Offense"
+msgstr "İddia"
+
+#: sergeant_at_arms/models.py:17
+msgid "Defense"
+msgstr "Savunma"
+
+#: sergeant_at_arms/models.py:18
+msgid "Decision"
+msgstr "Karar"
+
+#: sergeant_at_arms/models.py:19
+msgid "Penalty"
+msgstr "Ceza"
+
+#: sergeant_at_arms/models.py:21
+msgid "Date"
+msgstr "Tarih"
+
+#: sergeant_at_arms/models.py:30
+msgid "Discipline"
+msgstr "Disiplin"
+
+#: sergeant_at_arms/models.py:31
+msgid "Disciplines"
+msgstr "Disiplinler"
 
 #: templates/admin/index.html:8
 msgid "Django site admin"
