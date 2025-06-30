@@ -14,6 +14,7 @@ from pathlib import Path
 
 from django.templatetags.static import static
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -111,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "tr-tr"
 
 TIME_ZONE = "Europe/Istanbul"
 
@@ -123,6 +125,8 @@ LANGUAGES = [
     ("tr", "Turkish"),
     ("en", "English"),
 ]
+
+LOCALE_PATHS = [BASE_DIR / "locale"]
 
 
 # Static files (CSS, JavaScript, Images)
@@ -150,7 +154,7 @@ MEMBER_DUE_AMOUNT = 2000
 UNFOLD = {
     "SITE_TITLE": "Black Flag MC",
     "SITE_HEADER": "Black Flag MC",
-    "SITE_SUBHEADER": "Management System",
+    "SITE_SUBHEADER": _("Management System"),
     "SITE_DROPDOWN": None,
     "SITE_URL": "/",
     "SITE_ICON": None,
@@ -159,7 +163,7 @@ UNFOLD = {
     "SITE_FAVICONS": [],
     "SHOW_HISTORY": True,
     "SHOW_VIEW_ON_SITE": False,
-    "SHOW_LANGUAGES": False,
+    "SHOW_LANGUAGES": True,
     "SHOW_BACK_BUTTON": True,
     "COLORS": {
         "base": {
