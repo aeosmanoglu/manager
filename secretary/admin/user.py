@@ -193,7 +193,9 @@ class UserAdmin(BaseUserAdmin, DefaultAdmin):
     def show_location(self, request, object_id):
         user = self.get_object(request, object_id)
         if user.contacts.exists():
-            return redirect(f"https://what3words.com/{user.contacts.first().what3words}")
+            return redirect(
+                f"https://what3words.com/{user.contacts.first().what3words}"
+            )
         return None
 
     def has_add_dues_permission(self, request, obj=None):

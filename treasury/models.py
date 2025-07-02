@@ -74,7 +74,10 @@ class Statement(BaseModel):
     )
     description = models.CharField(max_length=100, verbose_name=_("Description"))
     amount = models.DecimalField(
-        max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], verbose_name=_("Amount")
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+        verbose_name=_("Amount"),
     )
     date = models.DateField(default=timezone.now, verbose_name=_("Date"))
 
@@ -93,7 +96,9 @@ class Inventory(BaseModel):
         related_name="inventories",
         verbose_name=_("Item"),
     )
-    quantity = models.IntegerField(validators=[MinValueValidator(1)], verbose_name=_("Quantity"))
+    quantity = models.IntegerField(
+        validators=[MinValueValidator(1)], verbose_name=_("Quantity")
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

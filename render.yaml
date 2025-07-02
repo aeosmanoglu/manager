@@ -1,0 +1,22 @@
+databases:
+  - name: coredb
+    plan: free
+    databaseName: core
+    user: coreuser
+
+services:
+  - type: web
+    plan: free
+    name: core
+    runtime: python
+    buildCommand: './build.sh'
+    startCommand: 'python -m gunicorn core.asgi:application -k uvicorn.workers.UvicornWorker'
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: coredb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
